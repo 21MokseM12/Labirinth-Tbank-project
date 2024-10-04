@@ -1,23 +1,16 @@
-package backend.academy.labyrinths.impl.services;
+package backend.academy.labyrinths.managers;
 
-import backend.academy.labyrinths.impl.factories.SessionFactory;
+import backend.academy.labyrinths.impl.services.Session;
 import backend.academy.labyrinths.impl.ui.services.UserInterface;
-import backend.academy.labyrinths.interfaces.factories.Factory;
 import backend.academy.labyrinths.interfaces.services.Startable;
 
 public class SessionManager implements Startable {
 
     private final UserInterface ui = new UserInterface();
 
-    private final Factory<Session> sessionFactory = new SessionFactory();
-
     @Override
     public void start() {
         ui.printGreeting();
-        menu();
-    }
-
-    private void menu() {
         while (true) {
             chooseMenuVariant();
             getSessionAgain();
@@ -35,7 +28,7 @@ public class SessionManager implements Startable {
 
             switch (chosenMenuVariant) {
                 case "1":
-                    sessionFactory.get().start();
+                    new Session(ui).start();
                     exitMenuFlag = true;
                     break;
                 case "2":

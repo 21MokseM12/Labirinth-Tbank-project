@@ -37,6 +37,16 @@ public class UserInterface {
         printNewLine();
     }
 
+    public void printSetLabyrinthWidth() {
+        printNewLine();
+        dataManager.write(Messages.CHOOSE_LABYRINTH_WIDTH.toString());
+    }
+
+    public void printSetLabyrinthHeight() {
+        printNewLine();
+        dataManager.write(Messages.CHOOSE_LABYRINTH_HEIGHT.toString());
+    }
+
     public String read() {
         return dataManager.read();
     }

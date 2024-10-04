@@ -25,7 +25,11 @@ public enum Messages {
         2. Нет
         """),
 
-    BYE_MESSAGE("До свидания!");
+    BYE_MESSAGE("До свидания!"),
+
+    CHOOSE_LABYRINTH_WIDTH("Введите ширину лабиринта в клетках: "),
+
+    CHOOSE_LABYRINTH_HEIGHT("Введите высоту лабиринта в клетках: ");
 
     private final String message;
 

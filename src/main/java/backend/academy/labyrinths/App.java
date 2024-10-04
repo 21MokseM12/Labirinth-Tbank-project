@@ -1,11 +1,10 @@
 package backend.academy.labyrinths;
 
-import backend.academy.labyrinths.impl.services.SessionManager;
-import backend.academy.labyrinths.interfaces.services.Startable;
+import backend.academy.labyrinths.managers.SessionManager;
 
 public final class App {
 
-    private static final Startable sessionManager = new SessionManager();
+    private static final SessionManager sessionManager = new SessionManager();
 
     public static void main(String[] args) {
         sessionManager.start();
