@@ -1,5 +1,5 @@
 package backend.academy.labyrinths.interfaces.validators;
 
-public interface Validator {
+public interface InputDataValidator {
     boolean isValid(String data);
 }
