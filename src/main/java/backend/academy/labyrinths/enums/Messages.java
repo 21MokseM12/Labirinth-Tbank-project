@@ -1,4 +1,4 @@
-package backend.academy.labyrinths.enums.ui;
+package backend.academy.labyrinths.enums;
 
 public enum Messages {
 

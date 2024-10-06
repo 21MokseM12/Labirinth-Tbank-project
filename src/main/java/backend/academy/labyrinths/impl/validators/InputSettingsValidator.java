@@ -4,7 +4,7 @@ import backend.academy.labyrinths.interfaces.validators.InputDataValidator;
 
 public class InputSettingsValidator implements InputDataValidator {
 
-    private static final int MAX_VALUE = 100;
+    private static final int MAX_VALUE = 20;
 
     @Override
     public boolean isValid(String data) {

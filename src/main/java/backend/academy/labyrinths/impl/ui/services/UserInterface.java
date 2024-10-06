@@ -1,6 +1,6 @@
 package backend.academy.labyrinths.impl.ui.services;
 
-import backend.academy.labyrinths.enums.ui.Messages;
+import backend.academy.labyrinths.enums.Messages;
 
 public class UserInterface {
 
