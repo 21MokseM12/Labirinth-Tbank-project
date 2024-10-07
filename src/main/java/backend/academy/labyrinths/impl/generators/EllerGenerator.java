@@ -7,7 +7,6 @@ import backend.academy.labyrinths.interfaces.generators.LabyrinthGenerator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Stream;
 
 public class EllerGenerator implements LabyrinthGenerator {
 
@@ -19,14 +18,17 @@ public class EllerGenerator implements LabyrinthGenerator {
 
     private int height;
 
-    private final List<Integer> line = new ArrayList<>();
+    private List<Integer> line;
 
-    private int counter = 0;
+    private int counter;
 
     @Override
     public Labyrinth generate(int width, int height) {
         this.width = width;
         this.height = height;
+        this.line = new ArrayList<>();
+        this.counter = 0;
+
         return new Labyrinth(
             width,
             height,
@@ -45,7 +47,6 @@ public class EllerGenerator implements LabyrinthGenerator {
             preparationNewLine(i);
         }
         addEndLine();
-        print();
         return labyrinth;
     }
 
@@ -166,14 +167,6 @@ public class EllerGenerator implements LabyrinthGenerator {
                 removeVerticalWall(labyrinth[height * 2 - 1][i * 2 + 1]);
                 merge(i, line.get(i));
             }
-        }
-    }
-
-    //TODO delete after testing
-    private void print() {
-        for (Cell[] arr : labyrinth) {
-            Stream.of(arr).forEach(System.out::print);
-            System.out.println();
         }
     }
 }
