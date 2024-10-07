@@ -43,8 +43,12 @@ public class UserInterface {
     }
 
     public void printSetLabyrinthHeight() {
-        printNewLine();
         dataManager.write(Messages.CHOOSE_LABYRINTH_HEIGHT.toString());
+    }
+
+    public void printSetDiffLevel() {
+        printNewLine();
+        dataManager.write(Messages.CHOOSE_DIFFICULT_LEVEL.toString());
     }
 
     public String read() {

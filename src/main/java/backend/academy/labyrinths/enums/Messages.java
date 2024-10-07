@@ -29,7 +29,14 @@ public enum Messages {
 
     CHOOSE_LABYRINTH_WIDTH("Введите ширину лабиринта в клетках: "),
 
-    CHOOSE_LABYRINTH_HEIGHT("Введите высоту лабиринта в клетках: ");
+    CHOOSE_LABYRINTH_HEIGHT("Введите высоту лабиринта в клетках: "),
+
+    CHOOSE_DIFFICULT_LEVEL("""
+        Уровни сложности:
+        1. Легкий
+        2. Средний
+        3. Сложный
+        """);
 
     private final String message;
 
