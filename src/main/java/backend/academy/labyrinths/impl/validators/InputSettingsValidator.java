@@ -6,7 +6,10 @@ public class InputSettingsValidator implements InputDataValidator {
 
     @Override
     public boolean isValidNumber(String data, int maxValue) {
-        if (data.matches("[0-9]+")) return Integer.parseInt(data) <= maxValue;
-        else return false;
+        if (data.matches("[0-9]+") || data.matches("-[0-9]+")) {
+            return Integer.parseInt(data) <= maxValue;
+        } else {
+            return false;
+        }
     }
 }
