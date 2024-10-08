@@ -1,6 +1,7 @@
 package backend.academy.labyrinths.impl.generators;
 
 import backend.academy.labyrinths.entites.Cell;
+import backend.academy.labyrinths.entites.Coordinates;
 import backend.academy.labyrinths.entites.Labyrinth;
 import backend.academy.labyrinths.enums.CellType;
 import backend.academy.labyrinths.interfaces.generators.LabyrinthGenerator;
@@ -10,7 +11,7 @@ import java.util.Random;
 
 public class EllerGenerator implements LabyrinthGenerator {
 
-    private final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     private Cell[][] labyrinth;
 
@@ -55,9 +56,9 @@ public class EllerGenerator implements LabyrinthGenerator {
         for (int i = 0; i < labyrinth.length; i++) {
             for (int j = 0; j < labyrinth[0].length; j++) {
                 if (i == 0 || i == labyrinth.length - 1 || j == 0 || j == labyrinth[0].length - 1) {
-                    labyrinth[i][j] = new Cell(j, i, CellType.WALL);
+                    labyrinth[i][j] = new Cell(new Coordinates(j, i), CellType.WALL);
                 } else {
-                    labyrinth[i][j] = new Cell(j, i, CellType.PASSAGE);
+                    labyrinth[i][j] = new Cell(new Coordinates(j, i), CellType.PASSAGE);
                 }
             }
         }
@@ -79,23 +80,23 @@ public class EllerGenerator implements LabyrinthGenerator {
     }
 
     private void setRightWall(Cell cell) {
-        labyrinth[cell.Y() - 1][cell.X() + 1].type(CellType.WALL);
-        labyrinth[cell.Y()][cell.X() + 1].type(CellType.WALL);
-        labyrinth[cell.Y() + 1][cell.X() + 1].type(CellType.WALL);
+        labyrinth[cell.coordinates().Y() - 1][cell.coordinates().X() + 1].type(CellType.WALL);
+        labyrinth[cell.coordinates().Y()][cell.coordinates().X() + 1].type(CellType.WALL);
+        labyrinth[cell.coordinates().Y() + 1][cell.coordinates().X() + 1].type(CellType.WALL);
     }
 
     private void setDownWall(Cell cell) {
-        labyrinth[cell.Y() + 1][cell.X() - 1].type(CellType.WALL);
-        labyrinth[cell.Y() + 1][cell.X()].type(CellType.WALL);
-        labyrinth[cell.Y() + 1][cell.X() + 1].type(CellType.WALL);
+        labyrinth[cell.coordinates().Y() + 1][cell.coordinates().X() - 1].type(CellType.WALL);
+        labyrinth[cell.coordinates().Y() + 1][cell.coordinates().X()].type(CellType.WALL);
+        labyrinth[cell.coordinates().Y() + 1][cell.coordinates().X() + 1].type(CellType.WALL);
     }
 
     private void removeDownWall(Cell cell) {
-        labyrinth[cell.Y() + 1][cell.X()].type(CellType.PASSAGE);
+        labyrinth[cell.coordinates().Y() + 1][cell.coordinates().X()].type(CellType.PASSAGE);
     }
 
     private void removeVerticalWall(Cell cell) {
-        labyrinth[cell.Y()][cell.X() + 1].type(CellType.PASSAGE);
+        labyrinth[cell.coordinates().Y()][cell.coordinates().X() + 1].type(CellType.PASSAGE);
     }
 
     private void merge(int index, int element) {
@@ -109,7 +110,7 @@ public class EllerGenerator implements LabyrinthGenerator {
 
     private void addVerticalWall(int row) {
         for (int i = 0; i < width - 1; i++) {
-            if (random.nextInt() % 2 == 0 || line.get(i).equals(line.get(i + 1))) {
+            if (RANDOM.nextInt() % 2 == 0 || line.get(i).equals(line.get(i + 1))) {
                 setRightWall(labyrinth[row * 2 + 1][i * 2 + 1]);
             } else {
                 merge(i, line.get(i));
@@ -119,7 +120,7 @@ public class EllerGenerator implements LabyrinthGenerator {
 
     private void addHorizontalWall(int row) {
         for (int i = 0; i < width; i++) {
-            if (countElementInSet(line.get(i)) != 1 && random.nextInt() % 2 == 0) {
+            if (countElementInSet(line.get(i)) != 1 && RANDOM.nextInt() % 2 == 0) {
                 setDownWall(labyrinth[row * 2 + 1][i * 2 + 1]);
             }
         }

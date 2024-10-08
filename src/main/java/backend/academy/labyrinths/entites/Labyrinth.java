@@ -18,17 +18,11 @@ public final class Labyrinth {
         this.grid = grid;
     }
 
-    public void setStart(int X, int Y) {
-        if (X != 0 || X != height-1 || Y != 0 || Y != width-1) {
-            throw new IllegalArgumentException("Старт не может быть в этом месте");
-        }
-        grid[X][Y] = new Cell(X, Y, CellType.START);
+    public void setStart(Coordinates coordinates) {
+        grid[coordinates.X()][coordinates.Y()].type(CellType.START);
     }
 
-    public void setFinish(int X, int Y) {
-        if (X != 0 || X != height-1 || Y != 0 || Y != width-1) {
-            throw new IllegalArgumentException("Финиш не может быть в этом месте");
-        }
-        grid[X][Y] = new Cell(X, Y, CellType.FINISH);
+    public void setFinish(Coordinates coordinates) {
+        grid[coordinates.X()][coordinates.Y()].type(CellType.FINISH);
     }
 }

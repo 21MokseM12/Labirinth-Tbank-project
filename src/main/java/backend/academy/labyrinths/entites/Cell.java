@@ -12,9 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Cell {
 
-    private int X;
-
-    private int Y;
+    private Coordinates coordinates;
 
     private CellType type;
 
