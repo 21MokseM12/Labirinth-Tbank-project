@@ -51,6 +51,20 @@ public class UserInterface {
         dataManager.write(Messages.CHOOSE_DIFFICULT_LEVEL.toString());
     }
 
+    public void printStartPositionMenu() {
+        printNewLine();
+        dataManager.write(Messages.START_POSITION_MESSAGE.toString());
+        printNewLine();
+        printStartFinishMenu();
+    }
+
+    public void printFinishPositionMenu() {
+        printNewLine();
+        dataManager.write(Messages.FINISH_POSITION_MESSAGE.toString());
+        printNewLine();
+        printStartFinishMenu();
+    }
+
     public String read() {
         return dataManager.read();
     }
@@ -62,5 +76,9 @@ public class UserInterface {
     private void printDoubleNewLine() {
         printNewLine();
         printNewLine();
+    }
+
+    private void printStartFinishMenu() {
+        dataManager.write(Messages.POSITION_MENU.toString());
     }
 }
