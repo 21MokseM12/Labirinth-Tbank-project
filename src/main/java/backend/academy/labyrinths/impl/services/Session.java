@@ -45,9 +45,9 @@ public class Session implements Startable {
 
     private int[] getLabyrinthSettings() {
         while (true) {
-            ui.printSetLabyrinthWidth();
+            ui.printSetLabyrinthWidth(MAX_LABYRINTH_WIDTH);
             String width = ui.read();
-            ui.printSetLabyrinthHeight();
+            ui.printSetLabyrinthHeight(MAX_LABYRINTH_HEIGHT);
             String height = ui.read();
 
             if (inputDataValidator.isValidNumber(width, MAX_LABYRINTH_WIDTH) &&

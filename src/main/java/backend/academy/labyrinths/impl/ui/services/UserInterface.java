@@ -37,13 +37,13 @@ public class UserInterface {
         printNewLine();
     }
 
-    public void printSetLabyrinthWidth() {
+    public void printSetLabyrinthWidth(int maxWidth) {
         printNewLine();
-        dataManager.write(Messages.CHOOSE_LABYRINTH_WIDTH.toString());
+        dataManager.write(Messages.CHOOSE_LABYRINTH_WIDTH.toString().formatted(maxWidth));
     }
 
-    public void printSetLabyrinthHeight() {
-        dataManager.write(Messages.CHOOSE_LABYRINTH_HEIGHT.toString());
+    public void printSetLabyrinthHeight(int maxHeight) {
+        dataManager.write(Messages.CHOOSE_LABYRINTH_HEIGHT.toString().formatted(maxHeight));
     }
 
     public void printSetDiffLevel() {
