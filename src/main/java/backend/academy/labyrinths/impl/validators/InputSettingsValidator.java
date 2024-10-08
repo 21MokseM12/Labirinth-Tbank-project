@@ -4,11 +4,9 @@ import backend.academy.labyrinths.interfaces.validators.InputDataValidator;
 
 public class InputSettingsValidator implements InputDataValidator {
 
-    private static final int MAX_VALUE = 20;
-
     @Override
-    public boolean isValid(String data) {
-        if (data.matches("[0-9]+")) return Integer.parseInt(data) <= MAX_VALUE;
+    public boolean isValidNumber(String data, int maxValue) {
+        if (data.matches("[0-9]+")) return Integer.parseInt(data) <= maxValue;
         else return false;
     }
 }
