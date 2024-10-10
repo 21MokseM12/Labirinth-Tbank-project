@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class LabyrinthGeneratorFactory {
 
-    private Map<GeneratorType, LabyrinthGenerator> generators;
+    private final Map<GeneratorType, LabyrinthGenerator> generators;
 
     public LabyrinthGeneratorFactory() {
         this.generators = new HashMap<>();
