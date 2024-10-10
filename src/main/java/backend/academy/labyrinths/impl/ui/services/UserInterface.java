@@ -1,6 +1,7 @@
 package backend.academy.labyrinths.impl.ui.services;
 
 import backend.academy.labyrinths.enums.Messages;
+import backend.academy.labyrinths.enums.SolverType;
 
 public class UserInterface {
 
@@ -63,6 +64,21 @@ public class UserInterface {
         dataManager.write(Messages.FINISH_POSITION_MESSAGE.toString());
         printNewLine();
         printStartFinishMenu();
+    }
+
+    public void printAlgorithmMenu() {
+        printNewLine();
+        dataManager.write(Messages.ALGORITHM_MENU.toString());
+    }
+
+    public void printSolveLabyrinthLabel(SolverType type) {
+        printNewLine();
+        dataManager.write(Messages.SOLVED_LABYRINTH_LABEL.toString().formatted(type.toString()));
+    }
+
+    public void printSolveNotFound() {
+        dataManager.write(Messages.SOLVE_NOT_FOUND.toString());
+        printNewLine();
     }
 
     public String read() {
