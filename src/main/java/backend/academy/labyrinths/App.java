@@ -6,7 +6,7 @@ public final class App {
 
     private static final SessionManager sessionManager = new SessionManager();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         sessionManager.start();
     }
 }

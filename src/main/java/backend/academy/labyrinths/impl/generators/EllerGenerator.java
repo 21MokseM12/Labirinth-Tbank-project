@@ -37,7 +37,7 @@ public class EllerGenerator implements LabyrinthGenerator {
         );
     }
 
-    public Cell[][] generateGrid(int width, int height) {
+    private Cell[][] generateGrid(int width, int height) {
         fillMaze(height, width);
         fillEmptyValue();
         for (int i = 0; i < height - 1; i++) {
@@ -51,7 +51,7 @@ public class EllerGenerator implements LabyrinthGenerator {
         return labyrinth;
     }
 
-    public void fillMaze(int height, int width) {
+    private void fillMaze(int height, int width) {
         labyrinth = new Cell[height * 2 + 1][width * 2 + 1];
         for (int i = 0; i < labyrinth.length; i++) {
             for (int j = 0; j < labyrinth[0].length; j++) {
