@@ -2,14 +2,12 @@ package backend.academy.labyrinths.managers;
 
 import backend.academy.labyrinths.impl.services.Session;
 import backend.academy.labyrinths.impl.ui.services.UserInterface;
-import backend.academy.labyrinths.interfaces.services.Startable;
 
-public class SessionManager implements Startable {
+public class SessionManager {
 
     private final UserInterface ui = new UserInterface();
 
-    @Override
-    public void start() {
+    public void start() throws InterruptedException {
         ui.printGreeting();
         while (true) {
             chooseMenuVariant();
@@ -17,7 +15,7 @@ public class SessionManager implements Startable {
         }
     }
 
-    private void chooseMenuVariant() {
+    private void chooseMenuVariant() throws InterruptedException {
         boolean exitMenuFlag = false;
 
         while (!exitMenuFlag) {
