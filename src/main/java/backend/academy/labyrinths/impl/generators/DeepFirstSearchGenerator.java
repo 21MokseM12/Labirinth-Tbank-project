@@ -17,7 +17,7 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
 
     private Deque<Cell> stack;
 
-    private  Cell[][] maze;
+    private  Cell[][] labyrinth;
 
     private Cell currentCell;
 
@@ -35,7 +35,7 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
 
     public Cell[][] generateGrid() {
         fillMaze();
-        currentCell = maze[1][1];
+        currentCell = labyrinth[1][1];
         Cell next;
 
         do {
@@ -53,19 +53,22 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
         } while (!stack.isEmpty());
 
         clearVisited();
-        return maze;
+        if (width % 2 == 0) fillRightWallToPassage();
+        if (height % 2 == 0) fillDownWallToPassage();
+
+        return labyrinth;
     }
 
     private void fillMaze() {
-        maze = new Cell[height + 2][width + 2];
-        for (int i = 0; i < maze.length; i++) {
-            for (int j = 0; j < maze[0].length; j++) {
-                if (i == 0 || i == maze.length - 1 || j == 0 || j == maze[0].length - 1) {
-                    maze[i][j] = new Cell(new Coordinates(j, i), CellType.WALL);
+        labyrinth = new Cell[height + 2][width + 2];
+        for (int i = 0; i < labyrinth.length; i++) {
+            for (int j = 0; j < labyrinth[0].length; j++) {
+                if (i == 0 || i == labyrinth.length - 1 || j == 0 || j == labyrinth[0].length - 1) {
+                    labyrinth[i][j] = new Cell(new Coordinates(j, i), CellType.WALL);
                 } else if (i % 2 == j % 2 && i % 2 == 1) {
-                    maze[i][j] = new Cell(new Coordinates(j, i), CellType.PASSAGE);
+                    labyrinth[i][j] = new Cell(new Coordinates(j, i), CellType.PASSAGE);
                 } else {
-                    maze[i][j] = new Cell(new Coordinates(j, i), CellType.WALL);
+                    labyrinth[i][j] = new Cell(new Coordinates(j, i), CellType.WALL);
                 }
             }
         }
@@ -73,25 +76,25 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
 
     private boolean checkCell(int y, int x) {
         return y >= 1
-            && y <= maze.length - 2
+            && y <= labyrinth.length - 2
             && x >= 1
-            && x <= maze[0].length - 2
-            && !maze[y][x].isVisited();
+            && x <= labyrinth[0].length - 2
+            && !labyrinth[y][x].isVisited();
     }
 
     private List<Cell> checkNeighbors() {
         List<Cell> neighbor = new ArrayList<>();
         if (checkCell(currentCell.coordinates().Y(), currentCell.coordinates().X() - 2)) {
-            neighbor.add(maze[currentCell.coordinates().Y()][currentCell.coordinates().X() - 2]);
+            neighbor.add(labyrinth[currentCell.coordinates().Y()][currentCell.coordinates().X() - 2]);
         }
         if (checkCell(currentCell.coordinates().Y() + 2, currentCell.coordinates().X())) {
-            neighbor.add(maze[currentCell.coordinates().Y() + 2][currentCell.coordinates().X()]);
+            neighbor.add(labyrinth[currentCell.coordinates().Y() + 2][currentCell.coordinates().X()]);
         }
         if (checkCell(currentCell.coordinates().Y(), currentCell.coordinates().X() + 2)) {
-            neighbor.add(maze[currentCell.coordinates().Y()][currentCell.coordinates().X() + 2]);
+            neighbor.add(labyrinth[currentCell.coordinates().Y()][currentCell.coordinates().X() + 2]);
         }
         if (checkCell(currentCell.coordinates().Y() - 2, currentCell.coordinates().X())) {
-            neighbor.add(maze[currentCell.coordinates().Y() - 2][currentCell.coordinates().X()]);
+            neighbor.add(labyrinth[currentCell.coordinates().Y() - 2][currentCell.coordinates().X()]);
         }
         return neighbor;
     }
@@ -99,15 +102,15 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
     private void breakWall(Cell first, Cell second) {
         if (first.coordinates().X() == second.coordinates().X()) {
             if (first.coordinates().Y() > second.coordinates().Y()) {
-                maze[first.coordinates().Y() - 1][first.coordinates().X()].type(CellType.PASSAGE);
+                labyrinth[first.coordinates().Y() - 1][first.coordinates().X()].type(CellType.PASSAGE);
             } else {
-                maze[second.coordinates().Y() - 1][second.coordinates().X()].type(CellType.PASSAGE);
+                labyrinth[second.coordinates().Y() - 1][second.coordinates().X()].type(CellType.PASSAGE);
             }
         } else {
             if (first.coordinates().X() > second.coordinates().X()) {
-                maze[first.coordinates().Y()][first.coordinates().X() - 1].type(CellType.PASSAGE);
+                labyrinth[first.coordinates().Y()][first.coordinates().X() - 1].type(CellType.PASSAGE);
             } else {
-                maze[second.coordinates().Y()][second.coordinates().X() - 1].type(CellType.PASSAGE);
+                labyrinth[second.coordinates().Y()][second.coordinates().X() - 1].type(CellType.PASSAGE);
             }
         }
     }
@@ -119,11 +122,25 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
         }
     }
 
-    public void clearVisited() {
-        for (Cell[] cells : maze) {
-            for (int j = 0; j < maze[0].length; j++) {
+    private void clearVisited() {
+        for (Cell[] cells : labyrinth) {
+            for (int j = 0; j < labyrinth[0].length; j++) {
                 cells[j].isVisited(false);
             }
+        }
+    }
+
+    private void fillRightWallToPassage() {
+        labyrinth[2][width].type(CellType.PASSAGE);
+        for (int i = 2; i < height; i++) {
+            labyrinth[i][width].type(CellType.PASSAGE);
+        }
+    }
+
+    private void fillDownWallToPassage() {
+        labyrinth[height][2].type(CellType.PASSAGE);
+        for (int i = 2; i < width; i++) {
+            labyrinth[height][i].type(CellType.PASSAGE);
         }
     }
 }
