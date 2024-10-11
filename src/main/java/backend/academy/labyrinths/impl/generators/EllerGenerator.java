@@ -25,20 +25,15 @@ public class EllerGenerator implements LabyrinthGenerator {
 
     @Override
     public Labyrinth generate(int width, int height) {
-        this.width = width;
-        this.height = height;
+        this.width = width / 2 + 1;
+        this.height = height / 2 + 1;
         this.line = new ArrayList<>();
         this.counter = 0;
-
-        return new Labyrinth(
-            width,
-            height,
-            generateGrid(width, height)
-        );
+        return new Labyrinth(generateGrid());
     }
 
-    private Cell[][] generateGrid(int width, int height) {
-        fillMaze(height, width);
+    private Cell[][] generateGrid() {
+        initializeLabyrinth();
         fillEmptyValue();
         for (int i = 0; i < height - 1; i++) {
             uniqueSet();
@@ -51,7 +46,7 @@ public class EllerGenerator implements LabyrinthGenerator {
         return labyrinth;
     }
 
-    private void fillMaze(int height, int width) {
+    private void initializeLabyrinth() {
         labyrinth = new Cell[height * 2 + 1][width * 2 + 1];
         for (int i = 0; i < labyrinth.length; i++) {
             for (int j = 0; j < labyrinth[0].length; j++) {
