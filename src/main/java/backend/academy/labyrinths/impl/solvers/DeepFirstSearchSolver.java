@@ -29,7 +29,7 @@ public class DeepFirstSearchSolver implements LabyrinthSolver {
         currentCell = start;
 
         do {
-            visitCell(currentCell);
+            markCellAsVisit(currentCell);
             List<Cell> neighbor = checkNeighbors(labyrinth, currentCell);
             if (neighbor.isEmpty()) {
                 next = deque.pollLast();
@@ -56,32 +56,32 @@ public class DeepFirstSearchSolver implements LabyrinthSolver {
     private List<Cell> checkNeighbors(Labyrinth labyrinth, Cell currentCell) {
         List<Cell> neighbor = new ArrayList<>();
         // up
-        if (checkCell(labyrinth, currentCell.coordinates().Y(), currentCell.coordinates().X() - 1)) {
+        if (checkSuitableCell(labyrinth, currentCell.coordinates().Y(), currentCell.coordinates().X() - 1)) {
             neighbor.add(labyrinth.grid()[currentCell.coordinates().Y()][currentCell.coordinates().X() - 1]);
         }
         // down
-        if (checkCell(labyrinth, currentCell.coordinates().Y() + 1, currentCell.coordinates().X())) {
+        if (checkSuitableCell(labyrinth, currentCell.coordinates().Y() + 1, currentCell.coordinates().X())) {
             neighbor.add(labyrinth.grid()[currentCell.coordinates().Y() + 1][currentCell.coordinates().X()]);
         }
         // right
-        if (checkCell(labyrinth, currentCell.coordinates().Y(), currentCell.coordinates().X() + 1)) {
+        if (checkSuitableCell(labyrinth, currentCell.coordinates().Y(), currentCell.coordinates().X() + 1)) {
             neighbor.add(labyrinth.grid()[currentCell.coordinates().Y()][currentCell.coordinates().X() + 1]);
         }
         // left
-        if (checkCell(labyrinth, currentCell.coordinates().Y() - 1, currentCell.coordinates().X())) {
+        if (checkSuitableCell(labyrinth, currentCell.coordinates().Y() - 1, currentCell.coordinates().X())) {
             neighbor.add(labyrinth.grid()[currentCell.coordinates().Y() - 1][currentCell.coordinates().X()]);
         }
         return neighbor;
     }
 
-    private boolean checkCell(Labyrinth labyrinth, int y, int x) {
+    private boolean checkSuitableCell(Labyrinth labyrinth, int y, int x) {
         if (isCoordinateInLabyrinth(labyrinth, x, y)) {
             return !labyrinth.grid()[y][x].isVisited()
                 && labyrinth.grid()[y][x].type() != CellType.WALL;
         } else return false;
     }
 
-    private void visitCell(Cell cell) {
+    private void markCellAsVisit(Cell cell) {
         if (!cell.isVisited()) {
             deque.add(cell);
             cell.isVisited(true);
@@ -89,6 +89,6 @@ public class DeepFirstSearchSolver implements LabyrinthSolver {
     }
 
     private boolean isCoordinateInLabyrinth(Labyrinth labyrinth, int x, int y) {
-        return x >= 0 && x < labyrinth.width() && y >= 0 && y < labyrinth.height();
+        return x >= 0 && x < labyrinth.grid()[0].length && y >= 0 && y < labyrinth.grid().length;
     }
 }
