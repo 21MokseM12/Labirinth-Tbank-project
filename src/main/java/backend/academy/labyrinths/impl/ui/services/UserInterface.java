@@ -47,11 +47,6 @@ public class UserInterface {
         dataManager.write(Messages.CHOOSE_LABYRINTH_HEIGHT.toString().formatted(maxHeight));
     }
 
-    public void printLabyrinthSizeMenu() {
-        printNewLine();
-        dataManager.write(Messages.CHOOSE_LABYRINTH_SIZE.toString());
-    }
-
     public void printSetGenerationAlgorithm() {
         printNewLine();
         dataManager.write(Messages.CHOOSE_GENERATION_ALGORITHM.toString());
