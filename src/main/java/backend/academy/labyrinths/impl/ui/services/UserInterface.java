@@ -1,5 +1,6 @@
 package backend.academy.labyrinths.impl.ui.services;
 
+import backend.academy.labyrinths.enums.GeneratorType;
 import backend.academy.labyrinths.enums.Messages;
 import backend.academy.labyrinths.enums.SolverType;
 
@@ -38,13 +39,17 @@ public class UserInterface {
         printNewLine();
     }
 
-    public void printSetLabyrinthWidth(int maxWidth) {
-        printNewLine();
-        dataManager.write(Messages.CHOOSE_LABYRINTH_WIDTH.toString().formatted(maxWidth));
-    }
+//    public void printSetLabyrinthWidth(int maxWidth) {
+//    dataManager.write(Messages.CHOOSE_LABYRINTH_WIDTH.toString().formatted(maxWidth));
+//    }
+//
+//    public void printSetLabyrinthHeight(int maxHeight) {
+//        dataManager.write(Messages.CHOOSE_LABYRINTH_HEIGHT.toString().formatted(maxHeight));
+//    }
 
-    public void printSetLabyrinthHeight(int maxHeight) {
-        dataManager.write(Messages.CHOOSE_LABYRINTH_HEIGHT.toString().formatted(maxHeight));
+    public void printLabyrinthSizeMenu() {
+        printNewLine();
+        dataManager.write(Messages.CHOOSE_LABYRINTH_SIZE.toString());
     }
 
     public void printSetDiffLevel() {
@@ -52,19 +57,29 @@ public class UserInterface {
         dataManager.write(Messages.CHOOSE_DIFFICULT_LEVEL.toString());
     }
 
-    public void printStartPositionMenu() {
+    public void printGenerateAlgorithmName(GeneratorType type) {
         printNewLine();
-        dataManager.write(Messages.START_POSITION_MESSAGE.toString());
-        printNewLine();
-        printStartFinishMenu();
+        dataManager.write(Messages.GENERATE_ALGORITHM_NAME.toString().formatted(type.toString()));
     }
 
-    public void printFinishPositionMenu() {
+    public void printSetStartFinishPositions() {
         printNewLine();
-        dataManager.write(Messages.FINISH_POSITION_MESSAGE.toString());
-        printNewLine();
-        printStartFinishMenu();
+        dataManager.write(Messages.START_FINISH_POSITIONS.toString());
     }
+
+//    public void printStartPositionMenu() {
+//        printNewLine();
+//        dataManager.write(Messages.START_POSITION_MESSAGE.toString());
+//        printNewLine();
+//        printStartFinishMenu();
+//    }
+//
+//    public void printFinishPositionMenu() {
+//        printNewLine();
+//        dataManager.write(Messages.FINISH_POSITION_MESSAGE.toString());
+//        printNewLine();
+//        printStartFinishMenu();
+//    }
 
     public void printAlgorithmMenu() {
         printNewLine();
@@ -94,7 +109,7 @@ public class UserInterface {
         printNewLine();
     }
 
-    private void printStartFinishMenu() {
-        dataManager.write(Messages.POSITION_MENU.toString());
-    }
+//    private void printStartFinishMenu() {
+//        dataManager.write(Messages.POSITION_MENU.toString());
+//    }
 }
