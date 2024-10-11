@@ -16,9 +16,9 @@ public final class Labyrinth {
 
     private final Cell[][] grid;
 
-    public Labyrinth(int width, int height, Cell[][] grid) {
-        this.width = width * 2 + 1;
-        this.height = height * 2 + 1;
+    public Labyrinth(Cell[][] grid) {
+        this.width = grid[0].length;
+        this.height = grid.length;
         this.grid = grid;
     }
 
