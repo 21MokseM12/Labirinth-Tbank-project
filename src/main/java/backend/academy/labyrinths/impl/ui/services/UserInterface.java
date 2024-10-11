@@ -39,22 +39,22 @@ public class UserInterface {
         printNewLine();
     }
 
-//    public void printSetLabyrinthWidth(int maxWidth) {
-//    dataManager.write(Messages.CHOOSE_LABYRINTH_WIDTH.toString().formatted(maxWidth));
-//    }
-//
-//    public void printSetLabyrinthHeight(int maxHeight) {
-//        dataManager.write(Messages.CHOOSE_LABYRINTH_HEIGHT.toString().formatted(maxHeight));
-//    }
+    public void printSetLabyrinthWidth(int maxWidth) {
+    dataManager.write(Messages.CHOOSE_LABYRINTH_WIDTH.toString().formatted(maxWidth));
+    }
+
+    public void printSetLabyrinthHeight(int maxHeight) {
+        dataManager.write(Messages.CHOOSE_LABYRINTH_HEIGHT.toString().formatted(maxHeight));
+    }
 
     public void printLabyrinthSizeMenu() {
         printNewLine();
         dataManager.write(Messages.CHOOSE_LABYRINTH_SIZE.toString());
     }
 
-    public void printSetDiffLevel() {
+    public void printSetGenerationAlgorithm() {
         printNewLine();
-        dataManager.write(Messages.CHOOSE_DIFFICULT_LEVEL.toString());
+        dataManager.write(Messages.CHOOSE_GENERATION_ALGORITHM.toString());
     }
 
     public void printGenerateAlgorithmName(GeneratorType type) {
@@ -66,20 +66,6 @@ public class UserInterface {
         printNewLine();
         dataManager.write(Messages.START_FINISH_POSITIONS.toString());
     }
-
-//    public void printStartPositionMenu() {
-//        printNewLine();
-//        dataManager.write(Messages.START_POSITION_MESSAGE.toString());
-//        printNewLine();
-//        printStartFinishMenu();
-//    }
-//
-//    public void printFinishPositionMenu() {
-//        printNewLine();
-//        dataManager.write(Messages.FINISH_POSITION_MESSAGE.toString());
-//        printNewLine();
-//        printStartFinishMenu();
-//    }
 
     public void printAlgorithmMenu() {
         printNewLine();
@@ -108,8 +94,4 @@ public class UserInterface {
         printNewLine();
         printNewLine();
     }
-
-//    private void printStartFinishMenu() {
-//        dataManager.write(Messages.POSITION_MENU.toString());
-//    }
 }

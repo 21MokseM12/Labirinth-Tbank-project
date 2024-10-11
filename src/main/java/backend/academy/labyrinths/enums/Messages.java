@@ -27,9 +27,9 @@ public enum Messages {
 
     BYE_MESSAGE("До свидания!"),
 
-//    CHOOSE_LABYRINTH_WIDTH("Введите ширину лабиринта в клетках (не более %s): "),
-//
-//    CHOOSE_LABYRINTH_HEIGHT("Введите высоту лабиринта в клетках (не более %s): "),
+    CHOOSE_LABYRINTH_WIDTH("Введите ширину лабиринта в клетках (не более %s): "),
+
+    CHOOSE_LABYRINTH_HEIGHT("Введите высоту лабиринта в клетках (не более %s): "),
 
     CHOOSE_LABYRINTH_SIZE("""
         РАЗМЕР ЛАБИРИНТА
@@ -38,7 +38,7 @@ public enum Messages {
         3. 31x31
         """),
 
-    CHOOSE_DIFFICULT_LEVEL("""
+    CHOOSE_GENERATION_ALGORITHM("""
         АЛГОРИТМ ГЕНЕРАЦИИ:
         1. DFS
         2. Алгоритм Эллера
@@ -46,17 +46,6 @@ public enum Messages {
         """),
 
     GENERATE_ALGORITHM_NAME("Алгоритм генерации лабиринта: %s"),
-
-//    POSITION_MENU("""
-//        1. Левый верхний угол
-//        2. Правый верхний угол
-//        3. Левый нижний угол
-//        4. Правый нижний угол
-//        """),
-
-//    START_POSITION_MESSAGE("Выберите точку лабиринта для старта: "),
-//
-//    FINISH_POSITION_MESSAGE("Выберите точку лабиринта для финиша: "),
 
     START_FINISH_POSITIONS("""
         ПОЗИЦИИ СТАРТ-ФИНИШ

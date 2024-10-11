@@ -22,7 +22,7 @@ public class Session {
 
     private final UserInterface ui;
 
-//    private final InputDataValidator inputDataValidator = new InputSettingsValidator();
+    private final InputDataValidator inputDataValidator = new InputSettingsValidator();
 
     private final LabyrinthGeneratorFactory generatorFactory = new LabyrinthGeneratorFactory();
 
@@ -30,17 +30,9 @@ public class Session {
 
     private final Renderer renderer = new LabyrinthRenderer();
 
-//    private final static int MAX_LABYRINTH_WIDTH = 30;
-//
-//    private final static int MAX_LABYRINTH_HEIGHT = 20;
+    private final static int MAX_LABYRINTH_WIDTH = 30;
 
-    private final static int[] SMALL_LABYRINTH_SIZE = new int[] {11, 11};
-
-    private final static int[] AVERAGE_LABYRINTH_SIZE = new int[] {21, 21};
-
-    private final static int[] LARGE_LABYRINTH_SIZE = new int[] {31, 31};
-
-//    private final static int COUNT_VARIANTS_START_FINISH_POSITIONS = 4;
+    private final static int MAX_LABYRINTH_HEIGHT = 20;
 
     private static final int DELAY = 250;
 
@@ -50,7 +42,7 @@ public class Session {
 
     public void start() throws InterruptedException {
         int[] labyrinthParams = getLabyrinthSettings();
-        GeneratorType type = getDifficultLLabyrinthLevel();
+        GeneratorType type = getGenerationLabyrinthAlgorithm();
 
         Labyrinth labyrinth = generatorFactory.get(type).generate(labyrinthParams[0], labyrinthParams[1]);
         setStartFinishPositions(labyrinth);
@@ -69,38 +61,25 @@ public class Session {
         }
     }
 
-    //TODO сделать ввод не вариантным, а любым для пользователя, проработать четные числа
     private int[] getLabyrinthSettings() {
         while (true) {
-//            ui.printSetLabyrinthWidth(MAX_LABYRINTH_WIDTH);
-//            String width = ui.read();
-//            ui.printSetLabyrinthHeight(MAX_LABYRINTH_HEIGHT);
-//            String height = ui.read();
+            ui.printSetLabyrinthWidth(MAX_LABYRINTH_WIDTH);
+            String width = ui.read();
+            ui.printSetLabyrinthHeight(MAX_LABYRINTH_HEIGHT);
+            String height = ui.read();
 
-//            if (inputDataValidator.isValidNumber(width, MAX_LABYRINTH_WIDTH) &&
-//                inputDataValidator.isValidNumber(height, MAX_LABYRINTH_HEIGHT)) {
-//                return new int[] {Integer.parseInt(width), Integer.parseInt(height)};
-//            } else {
-//                ui.printInputError();
-            ui.printLabyrinthSizeMenu();
-            ui.printChooseVariant();
-            String response = ui.read();
-
-            switch (response) {
-                case "1":
-                    return SMALL_LABYRINTH_SIZE;
-                case "2":
-                    return AVERAGE_LABYRINTH_SIZE;
-                case "3":
-                    return LARGE_LABYRINTH_SIZE;
-                default: ui.printInputError();
+            if (inputDataValidator.isValidNumber(width, MAX_LABYRINTH_WIDTH) &&
+                inputDataValidator.isValidNumber(height, MAX_LABYRINTH_HEIGHT)) {
+                return new int[] {Integer.parseInt(width), Integer.parseInt(height)};
+            } else {
+                ui.printInputError();
             }
         }
     }
 
-    private GeneratorType getDifficultLLabyrinthLevel() {
+    private GeneratorType getGenerationLabyrinthAlgorithm() {
         while (true) {
-            ui.printSetDiffLevel();
+            ui.printSetGenerationAlgorithm();
             ui.printChooseVariant();
             String response = ui.read();
 
@@ -146,27 +125,6 @@ public class Session {
                     return;
                 default: ui.printInputError();
             }
-//            ui.printStartPositionMenu();
-//            ui.printChooseVariant();
-//            String startResponse = ui.read();
-//
-//            ui.printFinishPositionMenu();
-//            ui.printChooseVariant();
-//            String finishResponse = ui.read();
-//
-//            if (inputDataValidator.isValidNumber(startResponse, COUNT_VARIANTS_START_FINISH_POSITIONS) &&
-//                inputDataValidator.isValidNumber(finishResponse, COUNT_VARIANTS_START_FINISH_POSITIONS)) {
-//                int start = Integer.parseInt(startResponse), finish = Integer.parseInt(finishResponse);
-//                if (start != finish) {
-//                    labyrinth.setStart(coordinates.get(Integer.parseInt(startResponse) - 1));
-//                    labyrinth.setFinish(coordinates.get(Integer.parseInt(finishResponse) - 1));
-//                    return;
-//                } else {
-//                    ui.printInputError();
-//                }
-//            } else {
-//                ui.printInputError();
-//            }
         }
     }
 
