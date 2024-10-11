@@ -1,6 +1,7 @@
 package backend.academy.labyrinths.factories;
 
 import backend.academy.labyrinths.enums.GeneratorType;
+import backend.academy.labyrinths.impl.generators.DeepFirstSearchGenerator;
 import backend.academy.labyrinths.impl.generators.EllerGenerator;
 import backend.academy.labyrinths.interfaces.generators.LabyrinthGenerator;
 import java.util.HashMap;
@@ -13,8 +14,11 @@ public class LabyrinthGeneratorFactory {
     public LabyrinthGeneratorFactory() {
         this.generators = new HashMap<>();
         for (GeneratorType type : GeneratorType.values()) {
-            if (type.equals(GeneratorType.ELLER_GENERATOR))
+            if (type.equals(GeneratorType.ELLER_GENERATOR)) {
                 generators.put(type, new EllerGenerator());
+            } else if (type.equals(GeneratorType.DFS)) {
+                generators.put(type, new DeepFirstSearchGenerator());
+            }
         }
     }
 
