@@ -34,6 +34,8 @@ public class Session {
 
     private final static int MAX_LABYRINTH_HEIGHT = 20;
 
+    private final static int MIN_LABYRINTH_SIZE = 2;
+
     private static final int DELAY = 250;
 
     public Session(UserInterface ui) {
@@ -68,8 +70,8 @@ public class Session {
             ui.printSetLabyrinthHeight(MAX_LABYRINTH_HEIGHT);
             String height = ui.read();
 
-            if (inputDataValidator.isValidNumber(width, MAX_LABYRINTH_WIDTH) &&
-                inputDataValidator.isValidNumber(height, MAX_LABYRINTH_HEIGHT)) {
+            if (inputDataValidator.isValidNumber(width, MIN_LABYRINTH_SIZE, MAX_LABYRINTH_WIDTH) &&
+                inputDataValidator.isValidNumber(height, MIN_LABYRINTH_SIZE, MAX_LABYRINTH_HEIGHT)) {
                 return new int[] {Integer.parseInt(width), Integer.parseInt(height)};
             } else {
                 ui.printInputError();
