@@ -38,11 +38,8 @@ public enum Messages {
         3. 31x31
         """),
 
-    CHOOSE_GENERATION_ALGORITHM("""
+    GENERATION_ALGORITHM_MENU_LABEL("""
         АЛГОРИТМ ГЕНЕРАЦИИ:
-        1. DFS
-        2. Алгоритм Эллера
-        3. Случайный выбор
         """),
 
     GENERATE_ALGORITHM_NAME("Алгоритм генерации лабиринта: %s"),
@@ -53,18 +50,18 @@ public enum Messages {
         2. Правый верхний угол - Левый нижний угол
         """),
 
-    ALGORITHM_MENU("""
-        Выберите алгоритм нахождения пути:
-        1. Поиск в глубину
-        2. ...
-        3. Случайный алгоритм"""),
+    SOLVER_ALGORITHM_MENU_LABEL("""
+        АЛГОРИТМ НАХОЖДЕНИЯ ПУТИ:
+        """),
 
     SOLVED_LABYRINTH_LABEL("""
         РЕШЕНИЕ ЛАБИРИНТА
         Алгоритм нахождения пути: %s
         """),
 
-    SOLVE_NOT_FOUND("Решение не было найдено...");
+    SOLVE_NOT_FOUND("Решение не было найдено..."),
+
+    RANDOM_CHOICE("3. Случайный выбор");
 
     private final String message;
 

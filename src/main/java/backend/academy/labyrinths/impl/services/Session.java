@@ -3,6 +3,7 @@ package backend.academy.labyrinths.impl.services;
 import backend.academy.labyrinths.entites.Cell;
 import backend.academy.labyrinths.entites.Coordinates;
 import backend.academy.labyrinths.entites.Labyrinth;
+import backend.academy.labyrinths.enums.AlgorithmType;
 import backend.academy.labyrinths.enums.GeneratorType;
 import backend.academy.labyrinths.enums.SolverType;
 import backend.academy.labyrinths.factories.LabyrinthGeneratorFactory;
@@ -13,7 +14,6 @@ import backend.academy.labyrinths.impl.validators.InputSettingsValidator;
 import backend.academy.labyrinths.interfaces.ui.services.Renderer;
 import backend.academy.labyrinths.interfaces.validators.InputDataValidator;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.Random;
@@ -52,7 +52,7 @@ public class Session {
         ui.printGenerateAlgorithmName(type);
         renderer.printLabyrinthDelay(labyrinth, DELAY);
 
-        SolverType solverType = chooseSolveAlgorithm();
+        SolverType solverType = getSolveLabyrinthAlgorithm();
         Optional<Queue<Cell>> solve = solverFactory.get(solverType).solve(labyrinth);
         if (solve.isPresent()) {
             ui.printSolveLabyrinthLabel(solverType);
@@ -80,23 +80,7 @@ public class Session {
     }
 
     private GeneratorType getGenerationLabyrinthAlgorithm() {
-        while (true) {
-            ui.printSetGenerationAlgorithm();
-            ui.printChooseVariant();
-            String response = ui.read();
-
-            switch (response) {
-                case "1":
-                    return GeneratorType.DFS;
-                case "2":
-                    return GeneratorType.ELLER_GENERATOR;
-                case "3":
-                    GeneratorType[] generatorTypes = GeneratorType.values();
-                    return generatorTypes[new Random().nextInt(generatorTypes.length)];
-                default:
-                    ui.printInputError();
-            }
-        }
+        return (GeneratorType) getAlgorithmType(GeneratorType.values());
     }
 
     private void setStartFinishPositions(Labyrinth labyrinth) {
@@ -130,23 +114,28 @@ public class Session {
         }
     }
 
-    private SolverType chooseSolveAlgorithm() {
+    private SolverType getSolveLabyrinthAlgorithm() {
+        return (SolverType) getAlgorithmType(SolverType.values());
+    }
+
+    private AlgorithmType getAlgorithmType(AlgorithmType[] types) {
         while (true) {
-            ui.printAlgorithmMenu();
+            if (types instanceof GeneratorType[]) {
+                ui.printSetGenerationAlgorithm(types);
+            } else if (types instanceof SolverType[]) {
+                ui.printSetResolvedAlgorithm(types);
+            }
             ui.printChooseVariant();
             String response = ui.read();
 
-            switch (response) {
-                case "1":
-                    return SolverType.DEEP_FIRST_SEARCH;
-                case "2":
-                    //TODO second solver
-                    throw new NoSuchElementException();
-                case "3":
-                    SolverType[] values = SolverType.values();
-                    return values[new Random().nextInt(values.length)];
-                default:
-                    ui.printInputError();
+            if (inputDataValidator.isValidNumber(response, 1, types.length+1)) {
+                if (Integer.parseInt(response) != types.length+1) {
+                    return types[Integer.parseInt(response)-1];
+                } else {
+                    return types[new Random().nextInt(types.length)];
+                }
+            } else {
+                ui.printInputError();
             }
         }
     }

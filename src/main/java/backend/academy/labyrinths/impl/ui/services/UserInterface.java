@@ -1,5 +1,6 @@
 package backend.academy.labyrinths.impl.ui.services;
 
+import backend.academy.labyrinths.enums.AlgorithmType;
 import backend.academy.labyrinths.enums.GeneratorType;
 import backend.academy.labyrinths.enums.Messages;
 import backend.academy.labyrinths.enums.SolverType;
@@ -47,9 +48,8 @@ public class UserInterface {
         dataManager.write(Messages.CHOOSE_LABYRINTH_HEIGHT.toString().formatted(maxHeight));
     }
 
-    public void printSetGenerationAlgorithm() {
-        printNewLine();
-        dataManager.write(Messages.CHOOSE_GENERATION_ALGORITHM.toString());
+    public void printSetGenerationAlgorithm(AlgorithmType[] types) {
+        printSetAlgorithmMenu(types, Messages.GENERATION_ALGORITHM_MENU_LABEL);
     }
 
     public void printGenerateAlgorithmName(GeneratorType type) {
@@ -62,9 +62,8 @@ public class UserInterface {
         dataManager.write(Messages.START_FINISH_POSITIONS.toString());
     }
 
-    public void printAlgorithmMenu() {
-        printNewLine();
-        dataManager.write(Messages.ALGORITHM_MENU.toString());
+    public void printSetResolvedAlgorithm(AlgorithmType[] types) {
+        printSetAlgorithmMenu(types, Messages.SOLVER_ALGORITHM_MENU_LABEL);
     }
 
     public void printSolveLabyrinthLabel(SolverType type) {
@@ -81,12 +80,19 @@ public class UserInterface {
         return dataManager.read();
     }
 
-    private void printNewLine() {
-        dataManager.write("\n");
+    private void printSetAlgorithmMenu(AlgorithmType[] types, Messages label) {
+        StringBuilder resultString = new StringBuilder();
+        for (int i = 0; i < types.length; i++) {
+            resultString.append(i + 1).append(". ").append(types[i]).append("\n");
+        }
+        resultString.append(Messages.RANDOM_CHOICE);
+
+        printNewLine();
+        dataManager.write(label.toString());
+        dataManager.write(resultString.toString());
     }
 
-    private void printDoubleNewLine() {
-        printNewLine();
-        printNewLine();
+    private void printNewLine() {
+        dataManager.write("\n");
     }
 }
