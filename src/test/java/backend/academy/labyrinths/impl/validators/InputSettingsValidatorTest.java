@@ -9,6 +9,8 @@ import java.util.stream.Stream;
 
 public class InputSettingsValidatorTest {
 
+    private final static int MIN_VALUE = Integer.MIN_VALUE;
+
     private final InputDataValidator validator = new InputSettingsValidator();
 
     static Stream<Arguments> validNumbersArguments() {
@@ -34,12 +36,12 @@ public class InputSettingsValidatorTest {
     @ParameterizedTest
     @MethodSource("validNumbersArguments")
     public void parametrizedCheckValidNumbersSuccess(String request, int maxValue) {
-        Assertions.assertTrue(validator.isValidNumber(request, maxValue));
+        Assertions.assertTrue(validator.isValidNumber(request, MIN_VALUE, maxValue));
     }
 
     @ParameterizedTest
     @MethodSource("invalidNumbersArguments")
     public void parametrizedCheckInvalidNumbersDenied(String request, int maxValue) {
-        Assertions.assertFalse(validator.isValidNumber(request, maxValue));
+        Assertions.assertFalse(validator.isValidNumber(request, MIN_VALUE, maxValue));
     }
 }
