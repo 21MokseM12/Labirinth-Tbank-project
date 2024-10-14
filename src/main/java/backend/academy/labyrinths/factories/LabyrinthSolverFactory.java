@@ -2,6 +2,7 @@ package backend.academy.labyrinths.factories;
 
 import backend.academy.labyrinths.enums.SolverType;
 import backend.academy.labyrinths.impl.solvers.DeepFirstSearchSolver;
+import backend.academy.labyrinths.impl.solvers.WallFollowerSolver;
 import backend.academy.labyrinths.interfaces.solvers.LabyrinthSolver;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,8 @@ public class LabyrinthSolverFactory {
         for (SolverType type : SolverType.values()) {
             if (type.equals(SolverType.DEEP_FIRST_SEARCH)) {
                 solvers.put(type, new DeepFirstSearchSolver());
+            } else if (type.equals(SolverType.WALL_FOLLOWER)) {
+                solvers.put(type, new WallFollowerSolver());
             }
         }
     }
