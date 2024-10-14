@@ -1,6 +1,6 @@
 package backend.academy.labyrinths.enums;
 
-public enum SolverType implements AlgorithmType{
+public enum SolverType implements AlgorithmType {
 
     DEEP_FIRST_SEARCH("Поиск в глубину"), WALL_FOLLOWER("Следование вдоль стен");
 
@@ -11,5 +11,7 @@ public enum SolverType implements AlgorithmType{
     }
 
     @Override
-    public String toString() {return this.name;}
+    public String toString() {
+        return this.name;
+    }
 }

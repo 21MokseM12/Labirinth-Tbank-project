@@ -25,8 +25,8 @@ public class LabyrinthRenderer implements Renderer {
     public void render(Queue<Cell> solveCells) {
         while (!solveCells.isEmpty()) {
             Cell cell = solveCells.poll();
-            if (!cell.type().equals(CellType.START) &&
-                !cell.type().equals(CellType.FINISH)) {
+            if (!cell.type().equals(CellType.START)
+                && !cell.type().equals(CellType.FINISH)) {
                 cell.type(CellType.SOLVE);
             }
         }

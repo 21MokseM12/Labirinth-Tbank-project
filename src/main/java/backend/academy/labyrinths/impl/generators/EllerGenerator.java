@@ -75,23 +75,23 @@ public class EllerGenerator implements LabyrinthGenerator {
     }
 
     private void setRightWall(Cell cell) {
-        labyrinth[cell.coordinates().Y() - 1][cell.coordinates().X() + 1].type(CellType.WALL);
-        labyrinth[cell.coordinates().Y()][cell.coordinates().X() + 1].type(CellType.WALL);
-        labyrinth[cell.coordinates().Y() + 1][cell.coordinates().X() + 1].type(CellType.WALL);
+        labyrinth[cell.coordinates().y() - 1][cell.coordinates().x() + 1].type(CellType.WALL);
+        labyrinth[cell.coordinates().y()][cell.coordinates().x() + 1].type(CellType.WALL);
+        labyrinth[cell.coordinates().y() + 1][cell.coordinates().x() + 1].type(CellType.WALL);
     }
 
     private void setDownWall(Cell cell) {
-        labyrinth[cell.coordinates().Y() + 1][cell.coordinates().X() - 1].type(CellType.WALL);
-        labyrinth[cell.coordinates().Y() + 1][cell.coordinates().X()].type(CellType.WALL);
-        labyrinth[cell.coordinates().Y() + 1][cell.coordinates().X() + 1].type(CellType.WALL);
+        labyrinth[cell.coordinates().y() + 1][cell.coordinates().x() - 1].type(CellType.WALL);
+        labyrinth[cell.coordinates().y() + 1][cell.coordinates().x()].type(CellType.WALL);
+        labyrinth[cell.coordinates().y() + 1][cell.coordinates().x() + 1].type(CellType.WALL);
     }
 
     private void removeDownWall(Cell cell) {
-        labyrinth[cell.coordinates().Y() + 1][cell.coordinates().X()].type(CellType.PASSAGE);
+        labyrinth[cell.coordinates().y() + 1][cell.coordinates().x()].type(CellType.PASSAGE);
     }
 
     private void removeVerticalWall(Cell cell) {
-        labyrinth[cell.coordinates().Y()][cell.coordinates().X() + 1].type(CellType.PASSAGE);
+        labyrinth[cell.coordinates().y()][cell.coordinates().x() + 1].type(CellType.PASSAGE);
     }
 
     private void merge(int index, int element) {

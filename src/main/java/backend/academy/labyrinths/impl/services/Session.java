@@ -56,7 +56,7 @@ public class Session {
         Optional<Queue<Cell>> solve = solverFactory.get(solverType).solve(labyrinth);
         if (solve.isPresent()) {
             ui.printSolveLabyrinthLabel(solverType);
-            renderer.render(solve.get());
+            renderer.render(solve.orElseThrow());
             renderer.printLabyrinthDelay(labyrinth, DELAY);
         } else {
             ui.printSolveNotFound();
@@ -70,8 +70,8 @@ public class Session {
             ui.printSetLabyrinthHeight(MAX_LABYRINTH_HEIGHT);
             String height = ui.read();
 
-            if (inputDataValidator.isValidNumber(width, MIN_LABYRINTH_SIZE, MAX_LABYRINTH_WIDTH) &&
-                inputDataValidator.isValidNumber(height, MIN_LABYRINTH_SIZE, MAX_LABYRINTH_HEIGHT)) {
+            if (inputDataValidator.isValidNumber(width, MIN_LABYRINTH_SIZE, MAX_LABYRINTH_WIDTH)
+                && inputDataValidator.isValidNumber(height, MIN_LABYRINTH_SIZE, MAX_LABYRINTH_HEIGHT)) {
                 return new int[] {Integer.parseInt(width), Integer.parseInt(height)};
             } else {
                 ui.printInputError();
@@ -84,6 +84,8 @@ public class Session {
     }
 
     private void setStartFinishPositions(Labyrinth labyrinth) {
+        boolean exitFlag = false;
+
         List<Coordinates> coordinates = List.of(
             // left up corner
             new Coordinates(1, 1),
@@ -104,12 +106,19 @@ public class Session {
                 case "1":
                     labyrinth.setStart(coordinates.getFirst());
                     labyrinth.setFinish(coordinates.getLast());
-                    return;
+                    exitFlag = true;
+                    break;
                 case "2":
                     labyrinth.setStart(coordinates.get(1));
                     labyrinth.setFinish(coordinates.get(2));
-                    return;
-                default: ui.printInputError();
+                    exitFlag = true;
+                    break;
+                default:
+                    ui.printInputError();
+            }
+
+            if (exitFlag) {
+                return;
             }
         }
     }
@@ -128,9 +137,9 @@ public class Session {
             ui.printChooseVariant();
             String response = ui.read();
 
-            if (inputDataValidator.isValidNumber(response, 1, types.length+1)) {
-                if (Integer.parseInt(response) != types.length+1) {
-                    return types[Integer.parseInt(response)-1];
+            if (inputDataValidator.isValidNumber(response, 1, types.length + 1)) {
+                if (Integer.parseInt(response) != types.length + 1) {
+                    return types[Integer.parseInt(response) - 1];
                 } else {
                     return types[new Random().nextInt(types.length)];
                 }

@@ -25,8 +25,8 @@ public class WallFollowerSolver implements LabyrinthSolver {
         deque = new ArrayDeque<>();
         currentDirection = Direction.RIGHT;
 
-        Cell start = grid[labyrinth.start().Y()][labyrinth.start().X()];
-        Cell exit = grid[labyrinth.finish().Y()][labyrinth.finish().X()];
+        Cell start = grid[labyrinth.start().y()][labyrinth.start().x()];
+        Cell exit = grid[labyrinth.finish().y()][labyrinth.finish().x()];
 
         currentCell = start;
 
@@ -62,7 +62,7 @@ public class WallFollowerSolver implements LabyrinthSolver {
             case UP -> Direction.RIGHT;
             case RIGHT -> Direction.DOWN;
             case DOWN -> Direction.LEFT;
-            case LEFT ->  Direction.UP;
+            case LEFT -> Direction.UP;
         };
     }
 
@@ -71,43 +71,46 @@ public class WallFollowerSolver implements LabyrinthSolver {
             case UP -> Direction.LEFT;
             case LEFT -> Direction.DOWN;
             case DOWN -> Direction.RIGHT;
-            case RIGHT ->  Direction.UP;
+            case RIGHT -> Direction.UP;
         };
     }
 
     private boolean canRotateRight() {
         return switch (currentDirection) {
-            case UP -> grid[currentCell.coordinates().Y()][currentCell.coordinates().X() + 1].type() != CellType.WALL;
-            case RIGHT -> grid[currentCell.coordinates().Y() + 1][currentCell.coordinates().X()].type() != CellType.WALL;
-            case DOWN -> grid[currentCell.coordinates().Y()][currentCell.coordinates().X() - 1].type() != CellType.WALL;
-            case LEFT -> grid[currentCell.coordinates().Y() - 1][currentCell.coordinates().X()].type() != CellType.WALL;
+            case UP -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1].type() != CellType.WALL;
+            case RIGHT ->
+                grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()].type() != CellType.WALL;
+            case DOWN -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1].type() != CellType.WALL;
+            case LEFT -> grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()].type() != CellType.WALL;
         };
     }
 
     private boolean canRotateLeft() {
         return switch (currentDirection) {
-            case UP -> grid[currentCell.coordinates().Y()][currentCell.coordinates().X() - 1].type() != CellType.WALL;
-            case RIGHT -> grid[currentCell.coordinates().Y() - 1][currentCell.coordinates().X()].type() != CellType.WALL;
-            case DOWN -> grid[currentCell.coordinates().Y()][currentCell.coordinates().X() + 1].type() != CellType.WALL;
-            case LEFT -> grid[currentCell.coordinates().Y() + 1][currentCell.coordinates().X()].type() != CellType.WALL;
+            case UP -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1].type() != CellType.WALL;
+            case RIGHT ->
+                grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()].type() != CellType.WALL;
+            case DOWN -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1].type() != CellType.WALL;
+            case LEFT -> grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()].type() != CellType.WALL;
         };
     }
 
     private boolean checkForwardCell() {
         return switch (currentDirection) {
-            case UP -> grid[currentCell.coordinates().Y() - 1][currentCell.coordinates().X()].type() != CellType.WALL;
-            case RIGHT -> grid[currentCell.coordinates().Y()][currentCell.coordinates().X() + 1].type() != CellType.WALL;
-            case DOWN -> grid[currentCell.coordinates().Y() + 1][currentCell.coordinates().X()].type() != CellType.WALL;
-            case LEFT -> grid[currentCell.coordinates().Y()][currentCell.coordinates().X() - 1].type() != CellType.WALL;
+            case UP -> grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()].type() != CellType.WALL;
+            case RIGHT ->
+                grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1].type() != CellType.WALL;
+            case DOWN -> grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()].type() != CellType.WALL;
+            case LEFT -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1].type() != CellType.WALL;
         };
     }
 
     private Cell moveForward() {
         return switch (currentDirection) {
-            case UP -> grid[currentCell.coordinates().Y() - 1][currentCell.coordinates().X()];
-            case RIGHT -> grid[currentCell.coordinates().Y()][currentCell.coordinates().X() + 1];
-            case DOWN -> grid[currentCell.coordinates().Y() + 1][currentCell.coordinates().X()];
-            case LEFT -> grid[currentCell.coordinates().Y()][currentCell.coordinates().X() - 1];
+            case UP -> grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()];
+            case RIGHT -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1];
+            case DOWN -> grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()];
+            case LEFT -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1];
         };
     }
 

@@ -41,7 +41,7 @@ public class UserInterface {
     }
 
     public void printSetLabyrinthWidth(int maxWidth) {
-    dataManager.write(Messages.CHOOSE_LABYRINTH_WIDTH.toString().formatted(maxWidth));
+        dataManager.write(Messages.CHOOSE_LABYRINTH_WIDTH.toString().formatted(maxWidth));
     }
 
     public void printSetLabyrinthHeight(int maxHeight) {

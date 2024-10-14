@@ -23,12 +23,12 @@ public final class Labyrinth {
     }
 
     public void setStart(Coordinates coordinates) {
-        grid[coordinates.X()][coordinates.Y()].type(CellType.START);
+        grid[coordinates.x()][coordinates.y()].type(CellType.START);
         this.start = coordinates;
     }
 
     public void setFinish(Coordinates coordinates) {
-        grid[coordinates.X()][coordinates.Y()].type(CellType.FINISH);
+        grid[coordinates.x()][coordinates.y()].type(CellType.FINISH);
         this.finish = coordinates;
     }
 }

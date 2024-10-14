@@ -24,8 +24,8 @@ public class DeepFirstSearchSolver implements LabyrinthSolver {
         Cell currentCell;
 
         Cell next;
-        Cell exit = labyrinth.grid()[labyrinth.finish().X()][labyrinth.finish().Y()];
-        Cell start = labyrinth.grid()[labyrinth.start().X()][labyrinth.start().Y()];
+        Cell exit = labyrinth.grid()[labyrinth.finish().x()][labyrinth.finish().y()];
+        Cell start = labyrinth.grid()[labyrinth.start().x()][labyrinth.start().y()];
         currentCell = start;
 
         do {
@@ -56,20 +56,20 @@ public class DeepFirstSearchSolver implements LabyrinthSolver {
     private List<Cell> checkNeighbors(Labyrinth labyrinth, Cell currentCell) {
         List<Cell> neighbor = new ArrayList<>();
         // up
-        if (checkSuitableCell(labyrinth, currentCell.coordinates().Y(), currentCell.coordinates().X() - 1)) {
-            neighbor.add(labyrinth.grid()[currentCell.coordinates().Y()][currentCell.coordinates().X() - 1]);
+        if (checkSuitableCell(labyrinth, currentCell.coordinates().y(), currentCell.coordinates().x() - 1)) {
+            neighbor.add(labyrinth.grid()[currentCell.coordinates().y()][currentCell.coordinates().x() - 1]);
         }
         // down
-        if (checkSuitableCell(labyrinth, currentCell.coordinates().Y() + 1, currentCell.coordinates().X())) {
-            neighbor.add(labyrinth.grid()[currentCell.coordinates().Y() + 1][currentCell.coordinates().X()]);
+        if (checkSuitableCell(labyrinth, currentCell.coordinates().y() + 1, currentCell.coordinates().x())) {
+            neighbor.add(labyrinth.grid()[currentCell.coordinates().y() + 1][currentCell.coordinates().x()]);
         }
         // right
-        if (checkSuitableCell(labyrinth, currentCell.coordinates().Y(), currentCell.coordinates().X() + 1)) {
-            neighbor.add(labyrinth.grid()[currentCell.coordinates().Y()][currentCell.coordinates().X() + 1]);
+        if (checkSuitableCell(labyrinth, currentCell.coordinates().y(), currentCell.coordinates().x() + 1)) {
+            neighbor.add(labyrinth.grid()[currentCell.coordinates().y()][currentCell.coordinates().x() + 1]);
         }
         // left
-        if (checkSuitableCell(labyrinth, currentCell.coordinates().Y() - 1, currentCell.coordinates().X())) {
-            neighbor.add(labyrinth.grid()[currentCell.coordinates().Y() - 1][currentCell.coordinates().X()]);
+        if (checkSuitableCell(labyrinth, currentCell.coordinates().y() - 1, currentCell.coordinates().x())) {
+            neighbor.add(labyrinth.grid()[currentCell.coordinates().y() - 1][currentCell.coordinates().x()]);
         }
         return neighbor;
     }
@@ -78,7 +78,9 @@ public class DeepFirstSearchSolver implements LabyrinthSolver {
         if (isCoordinateInLabyrinth(labyrinth, x, y)) {
             return !labyrinth.grid()[y][x].isVisited()
                 && labyrinth.grid()[y][x].type() != CellType.WALL;
-        } else return false;
+        } else {
+            return false;
+        }
     }
 
     private void markCellAsVisit(Cell cell) {

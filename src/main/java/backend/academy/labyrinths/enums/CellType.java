@@ -18,5 +18,7 @@ public enum CellType {
         this.color = color;
     }
 
-    public String getColor() {return this.color;}
+    public String getColor() {
+        return this.color;
+    }
 }

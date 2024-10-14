@@ -17,7 +17,7 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
 
     private Deque<Cell> stack;
 
-    private  Cell[][] labyrinth;
+    private Cell[][] labyrinth;
 
     private Cell currentCell;
 
@@ -53,8 +53,12 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
         } while (!stack.isEmpty());
 
         clearVisited();
-        if (width % 2 == 0) fillRightWallToPassage();
-        if (height % 2 == 0) fillDownWallToPassage();
+        if (width % 2 == 0) {
+            fillRightWallToPassage();
+        }
+        if (height % 2 == 0) {
+            fillDownWallToPassage();
+        }
 
         return labyrinth;
     }
@@ -84,33 +88,33 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
 
     private List<Cell> checkNeighbors() {
         List<Cell> neighbor = new ArrayList<>();
-        if (checkCell(currentCell.coordinates().Y(), currentCell.coordinates().X() - 2)) {
-            neighbor.add(labyrinth[currentCell.coordinates().Y()][currentCell.coordinates().X() - 2]);
+        if (checkCell(currentCell.coordinates().y(), currentCell.coordinates().x() - 2)) {
+            neighbor.add(labyrinth[currentCell.coordinates().y()][currentCell.coordinates().x() - 2]);
         }
-        if (checkCell(currentCell.coordinates().Y() + 2, currentCell.coordinates().X())) {
-            neighbor.add(labyrinth[currentCell.coordinates().Y() + 2][currentCell.coordinates().X()]);
+        if (checkCell(currentCell.coordinates().y() + 2, currentCell.coordinates().x())) {
+            neighbor.add(labyrinth[currentCell.coordinates().y() + 2][currentCell.coordinates().x()]);
         }
-        if (checkCell(currentCell.coordinates().Y(), currentCell.coordinates().X() + 2)) {
-            neighbor.add(labyrinth[currentCell.coordinates().Y()][currentCell.coordinates().X() + 2]);
+        if (checkCell(currentCell.coordinates().y(), currentCell.coordinates().x() + 2)) {
+            neighbor.add(labyrinth[currentCell.coordinates().y()][currentCell.coordinates().x() + 2]);
         }
-        if (checkCell(currentCell.coordinates().Y() - 2, currentCell.coordinates().X())) {
-            neighbor.add(labyrinth[currentCell.coordinates().Y() - 2][currentCell.coordinates().X()]);
+        if (checkCell(currentCell.coordinates().y() - 2, currentCell.coordinates().x())) {
+            neighbor.add(labyrinth[currentCell.coordinates().y() - 2][currentCell.coordinates().x()]);
         }
         return neighbor;
     }
 
     private void breakWall(Cell first, Cell second) {
-        if (first.coordinates().X() == second.coordinates().X()) {
-            if (first.coordinates().Y() > second.coordinates().Y()) {
-                labyrinth[first.coordinates().Y() - 1][first.coordinates().X()].type(CellType.PASSAGE);
+        if (first.coordinates().x() == second.coordinates().x()) {
+            if (first.coordinates().y() > second.coordinates().y()) {
+                labyrinth[first.coordinates().y() - 1][first.coordinates().x()].type(CellType.PASSAGE);
             } else {
-                labyrinth[second.coordinates().Y() - 1][second.coordinates().X()].type(CellType.PASSAGE);
+                labyrinth[second.coordinates().y() - 1][second.coordinates().x()].type(CellType.PASSAGE);
             }
         } else {
-            if (first.coordinates().X() > second.coordinates().X()) {
-                labyrinth[first.coordinates().Y()][first.coordinates().X() - 1].type(CellType.PASSAGE);
+            if (first.coordinates().x() > second.coordinates().x()) {
+                labyrinth[first.coordinates().y()][first.coordinates().x() - 1].type(CellType.PASSAGE);
             } else {
-                labyrinth[second.coordinates().Y()][second.coordinates().X() - 1].type(CellType.PASSAGE);
+                labyrinth[second.coordinates().y()][second.coordinates().x() - 1].type(CellType.PASSAGE);
             }
         }
     }

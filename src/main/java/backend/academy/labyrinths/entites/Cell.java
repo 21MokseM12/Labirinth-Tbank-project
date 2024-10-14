@@ -23,5 +23,7 @@ public class Cell {
     }
 
     @Override
-    public String toString() {return this.type.getColor();}
+    public String toString() {
+        return this.type.getColor();
+    }
 }
