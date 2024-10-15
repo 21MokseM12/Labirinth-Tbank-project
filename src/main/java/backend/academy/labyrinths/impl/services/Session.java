@@ -18,30 +18,64 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.Random;
 
+/**
+ * Класс сессии с пользователем
+ */
 public class Session {
 
+    /**
+     * Сервис пользовательского интерфейса
+     */
     private final UserInterface ui;
 
+    /**
+     * Сервис валидации пользовательских данных
+     */
     private final InputDataValidator inputDataValidator = new InputSettingsValidator();
 
+    /**
+     * Фабрика алгоритмов генерации лабиринта
+     */
     private final LabyrinthGeneratorFactory generatorFactory = new LabyrinthGeneratorFactory();
 
+    /**
+     * Фабрика алгоритмов поиска пути в лабиринте
+     */
     private final LabyrinthSolverFactory solverFactory = new LabyrinthSolverFactory();
 
+    /**
+     * Сервис рендеринга и вывода лабиринта на консоль
+     */
     private final Renderer renderer = new LabyrinthRenderer();
 
+    /**
+     * Максимальная ширина лабиринта
+     */
     private final static int MAX_LABYRINTH_WIDTH = 30;
 
+    /**
+     * Максимальная высота лабиринта
+     */
     private final static int MAX_LABYRINTH_HEIGHT = 20;
 
+    /**
+     * Минимальный размер лабиринта
+     */
     private final static int MIN_LABYRINTH_SIZE = 2;
 
+    /**
+     * Задержка при выводе лабиринта на консоль
+     */
     private static final int DELAY = 250;
 
     public Session(UserInterface ui) {
         this.ui = ui;
     }
 
+    /**
+     * Основной метод, реализующий игровую сессию
+     * @throws InterruptedException - исключение, выбрасываемое, если задержка вывода лабиринта на консоль не валидна
+     */
     public void start() throws InterruptedException {
         int[] labyrinthParams = getLabyrinthSettings();
         GeneratorType type = getGenerationLabyrinthAlgorithm();
@@ -63,6 +97,10 @@ public class Session {
         }
     }
 
+    /**
+     * Метод, собирающий с пользователя размеры лабиринта: ширина и высота
+     * @return - массив типа int из двух элементов, где 1 элемент - ширина, 2 элемент - высота
+     */
     private int[] getLabyrinthSettings() {
         while (true) {
             ui.printSetLabyrinthWidth(MAX_LABYRINTH_WIDTH);
@@ -79,10 +117,26 @@ public class Session {
         }
     }
 
+    /**
+     * Метод запроса у пользователя выбора алгоритма генерации лабиринта
+     * @return - выбранный тип генератора
+     */
     private GeneratorType getGenerationLabyrinthAlgorithm() {
         return (GeneratorType) getAlgorithmType(GeneratorType.values());
     }
 
+    /**
+     * Метод запроса у пользователя выбора алгоритма поиска пути в лабиринте
+     * @return - выбранный тип алгоритма
+     */
+    private SolverType getSolveLabyrinthAlgorithm() {
+        return (SolverType) getAlgorithmType(SolverType.values());
+    }
+
+    /**
+     * Метод запроса у пользователя выбора точек старта и финиша в лабиринте с установлением этих точек в лабиринт
+     * @param labyrinth - объект лабиринта
+     */
     private void setStartFinishPositions(Labyrinth labyrinth) {
         boolean exitFlag = false;
 
@@ -123,10 +177,11 @@ public class Session {
         }
     }
 
-    private SolverType getSolveLabyrinthAlgorithm() {
-        return (SolverType) getAlgorithmType(SolverType.values());
-    }
-
+    /**
+     * Метод для вывода на консоль меню возможных алгоритмов и запроса у пользователя на выбор одного из них
+     * @param types - массив доступных алгоритмов
+     * @return - выбранный тип алгоритма
+     */
     private AlgorithmType getAlgorithmType(AlgorithmType[] types) {
         while (true) {
             if (types instanceof GeneratorType[]) {

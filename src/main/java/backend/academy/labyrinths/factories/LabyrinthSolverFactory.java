@@ -7,6 +7,9 @@ import backend.academy.labyrinths.interfaces.solvers.LabyrinthSolver;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Фабрика алгоритмов поиска пути в лабиринте
+ */
 public class LabyrinthSolverFactory {
 
     private final Map<SolverType, LabyrinthSolver> solvers;
@@ -23,6 +26,11 @@ public class LabyrinthSolverFactory {
         }
     }
 
+    /**
+     * Метод, возвращающий конкретную реализацию алгоритма поиска пути в зависимости от переданного типа
+     * @param type - тип алгоритма поиска пути лабиринта
+     * @return - конкретная реализация алгоритма поиска пути
+     */
     public LabyrinthSolver get(SolverType type) {
         return this.solvers.get(type);
     }

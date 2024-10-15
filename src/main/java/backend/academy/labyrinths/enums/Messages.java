@@ -1,5 +1,8 @@
 package backend.academy.labyrinths.enums;
 
+/**
+ * Enum, содержащий сообщения для пользователя
+ */
 public enum Messages {
 
     GREETING("""
@@ -30,13 +33,6 @@ public enum Messages {
     CHOOSE_LABYRINTH_WIDTH("Введите ширину лабиринта в клетках (не более %s): "),
 
     CHOOSE_LABYRINTH_HEIGHT("Введите высоту лабиринта в клетках (не более %s): "),
-
-    CHOOSE_LABYRINTH_SIZE("""
-        РАЗМЕР ЛАБИРИНТА
-        1. 11x11
-        2. 21x21
-        3. 31x31
-        """),
 
     GENERATION_ALGORITHM_MENU_LABEL("""
         АЛГОРИТМ ГЕНЕРАЦИИ:

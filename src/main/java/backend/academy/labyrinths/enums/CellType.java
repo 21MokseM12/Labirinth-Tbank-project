@@ -1,5 +1,11 @@
 package backend.academy.labyrinths.enums;
 
+import lombok.Getter;
+
+/**
+ * Enum, содержащий тип клетки: ПРОХОД, СТЕНА, ВХОД, ВЫХОД
+ */
+@Getter
 public enum CellType {
 
     WALL("\u001B[40m\u001B[30m...\u001B[0m"),
@@ -16,9 +22,5 @@ public enum CellType {
 
     CellType(String color) {
         this.color = color;
-    }
-
-    public String getColor() {
-        return this.color;
     }
 }

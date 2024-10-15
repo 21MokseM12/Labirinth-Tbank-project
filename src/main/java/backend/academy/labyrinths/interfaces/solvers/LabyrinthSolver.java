@@ -5,6 +5,9 @@ import backend.academy.labyrinths.entites.Labyrinth;
 import java.util.Optional;
 import java.util.Queue;
 
+/**
+ * Интерфейс алгоритма поиска пути в лабиринте
+ */
 public interface LabyrinthSolver {
     Optional<Queue<Cell>> solve(Labyrinth labyrinth);
 }

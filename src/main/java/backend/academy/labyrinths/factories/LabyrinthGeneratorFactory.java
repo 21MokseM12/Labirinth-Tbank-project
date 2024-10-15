@@ -7,6 +7,9 @@ import backend.academy.labyrinths.interfaces.generators.LabyrinthGenerator;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Фабрика алгоритмов генерации лабиринта
+ */
 public class LabyrinthGeneratorFactory {
 
     private final Map<GeneratorType, LabyrinthGenerator> generators;
@@ -22,6 +25,11 @@ public class LabyrinthGeneratorFactory {
         }
     }
 
+    /**
+     * Метод, возвращающий конкретную реализацию алгоритма генерации в зависимости от переданного типа
+     * @param type - тип алгоритма генерации лабиринта
+     * @return - конкретная реализация алгоритма генерации
+     */
     public LabyrinthGenerator get(GeneratorType type) {
         return this.generators.get(type);
     }

@@ -5,6 +5,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Класс клетки лабиринта
+ * Содержит:
+ * - координаты клетки в лабиринте
+ * - тип клетки: ВХОД, ВЫХОД, ПРОХОД, СТЕНА
+ */
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -24,6 +30,6 @@ public class Cell {
 
     @Override
     public String toString() {
-        return this.type.getColor();
+        return this.type.color();
     }
 }

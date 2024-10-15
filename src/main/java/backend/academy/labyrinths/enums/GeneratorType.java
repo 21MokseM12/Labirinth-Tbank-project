@@ -1,8 +1,13 @@
 package backend.academy.labyrinths.enums;
 
+/**
+ * Enum, содержащий тип генератора лабиринта
+ */
 public enum GeneratorType implements AlgorithmType {
 
-    ELLER_GENERATOR("Алгоритм Эллера"), DFS("DFS");
+    ELLER_GENERATOR("Алгоритм Эллера"),
+
+    DFS("DFS");
 
     private final String name;
 

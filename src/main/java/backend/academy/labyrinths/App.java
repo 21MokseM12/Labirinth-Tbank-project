@@ -2,6 +2,9 @@ package backend.academy.labyrinths;
 
 import backend.academy.labyrinths.managers.SessionManager;
 
+/**
+ * Терминальный класс, служит для запуска всего приложения
+ */
 @SuppressWarnings("uncommentedmain")
 public final class App {
 

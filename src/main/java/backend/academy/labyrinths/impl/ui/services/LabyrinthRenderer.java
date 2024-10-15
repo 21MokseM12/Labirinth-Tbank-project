@@ -7,10 +7,19 @@ import backend.academy.labyrinths.interfaces.ui.services.Renderer;
 import java.util.Queue;
 import java.util.stream.Stream;
 
+/**
+ * Класс, реализующий рендер и вывод лабиринта в консоль
+ */
 public class LabyrinthRenderer implements Renderer {
 
     private final UserDataManager dataManager = new UserDataManager();
 
+    /**
+     * Метод печати лабиринта в консоль с задержкой
+     * @param labyrinth - объект лабиринта
+     * @param msDelay - задержка вывода в консоль
+     * @throws InterruptedException - исключение, выбрасываемое в случае, если задержка не валидна
+     */
     @Override
     public void printLabyrinthDelay(Labyrinth labyrinth, long msDelay) throws InterruptedException {
         printNewLine();
@@ -21,6 +30,10 @@ public class LabyrinthRenderer implements Renderer {
         }
     }
 
+    /**
+     * Метод рендеринга лабиринта
+     * @param solveCells - очередь клеток, которым нужно присвоить тип SOLVE
+     */
     @Override
     public void render(Queue<Cell> solveCells) {
         while (!solveCells.isEmpty()) {
@@ -32,6 +45,9 @@ public class LabyrinthRenderer implements Renderer {
         }
     }
 
+    /**
+     * Метод перехода на новую строку
+     */
     private void printNewLine() {
         dataManager.write("\n");
     }
