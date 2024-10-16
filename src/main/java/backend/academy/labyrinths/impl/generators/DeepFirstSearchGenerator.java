@@ -11,20 +11,43 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Класс-генератор лабиринта методом DFS
+ */
 public class DeepFirstSearchGenerator implements LabyrinthGenerator {
 
     private final static Random RANDOM = new Random();
 
+    /**
+     * Стек пройденного пути
+     */
     private Deque<Cell> stack;
 
+    /**
+     * Поле лабиринта
+     */
     private Cell[][] labyrinth;
 
+    /**
+     * Текущая клетка, на которой находится алгоритм
+     */
     private Cell currentCell;
 
+    /**
+     * Высота лабиринта
+     */
     private int height;
 
+    /**
+     * Ширина лабиринта
+     */
     private int width;
 
+    /**
+     * Терминальный метод генерации
+     * @param height - желаемая высота лабиринта
+     * @param width - желаемая ширина лабиринта
+     */
     @Override
     public Labyrinth generate(int width, int height) {
         this.height = height;
@@ -33,8 +56,12 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
         return new Labyrinth(generateGrid());
     }
 
+    /**
+     * Метод генерации поля лабиринта
+     * @return - поле лабиринта grid
+     */
     public Cell[][] generateGrid() {
-        fillMaze();
+        initializeLabyrinthField();
         currentCell = labyrinth[1][1];
         Cell next;
 
@@ -63,7 +90,10 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
         return labyrinth;
     }
 
-    private void fillMaze() {
+    /**
+     * Метод инициализации поля лабиринта
+     */
+    private void initializeLabyrinthField() {
         labyrinth = new Cell[height + 2][width + 2];
         for (int i = 0; i < labyrinth.length; i++) {
             for (int j = 0; j < labyrinth[0].length; j++) {
@@ -78,6 +108,12 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
         }
     }
 
+    /**
+     * Метод проверки координат на принадлежность полю лабиринта и проверка посещения этой клетки
+     * @param y - координата Y
+     * @param x - координата X
+     * @return - true, если координаты удовлетворяют условию, false в противном случае
+     */
     private boolean checkCell(int y, int x) {
         return y >= 1
             && y <= labyrinth.length - 2
@@ -86,6 +122,10 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
             && !labyrinth[y][x].isVisited();
     }
 
+    /**
+     * Метод нахождения всех соседей клетки, удовлетворяющих условиям
+     * @return - список всех доступных соседей текущей клетки
+     */
     private List<Cell> checkNeighbors() {
         List<Cell> neighbor = new ArrayList<>();
         if (checkCell(currentCell.coordinates().y(), currentCell.coordinates().x() - 2)) {
@@ -103,6 +143,11 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
         return neighbor;
     }
 
+    /**
+     * Метод удаления стен между двумя клетками, поданными на вход методу
+     * @param first - первая клетка
+     * @param second - вторая клетка
+     */
     private void breakWall(Cell first, Cell second) {
         if (first.coordinates().x() == second.coordinates().x()) {
             if (first.coordinates().y() > second.coordinates().y()) {
@@ -119,6 +164,10 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
         }
     }
 
+    /**
+     * Метод пометки клетки как посещенной
+     * @param cell - клетка, которую необходимо отметить как посещенную
+     */
     private void markCellAsVisit(Cell cell) {
         if (!cell.isVisited()) {
             stack.addFirst(cell);
@@ -126,6 +175,9 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
         }
     }
 
+    /**
+     * Метод затирания всех флагов посещенных клеток в лабиринте
+     */
     private void clearVisited() {
         for (Cell[] cells : labyrinth) {
             for (int j = 0; j < labyrinth[0].length; j++) {
@@ -134,6 +186,9 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
         }
     }
 
+    /**
+     * Метод, изменяющий всю правую стену внутри границ лабиринта на проходы
+     */
     private void fillRightWallToPassage() {
         labyrinth[2][width].type(CellType.PASSAGE);
         for (int i = 2; i < height; i++) {
@@ -141,6 +196,9 @@ public class DeepFirstSearchGenerator implements LabyrinthGenerator {
         }
     }
 
+    /**
+     * Метод, изменяющий всю нижнюю стену внутри границ лабиринта на проходы
+     */
     private void fillDownWallToPassage() {
         labyrinth[height][2].type(CellType.PASSAGE);
         for (int i = 2; i < width; i++) {
