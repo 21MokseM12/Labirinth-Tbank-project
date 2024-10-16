@@ -9,16 +9,37 @@ import java.util.Deque;
 import java.util.Optional;
 import java.util.Queue;
 
+/**
+ * Класс поиска пути в лабиринте алгоритмом следования вдоль стен
+ */
 public class WallFollowerSolver implements LabyrinthSolver {
 
+    /**
+     * Поле лабиринта
+     */
     private Cell[][] grid;
 
+    /**
+     * Текущее направление, которое рассматривает алгоритм
+     */
     private Direction currentDirection;
 
+    /**
+     * Текущая клетка, которую рассматривает алгоритм
+     */
     private Cell currentCell;
 
+    /**
+     * Очередь, содержащая все точки найденного пути
+     */
     private Deque<Cell> deque;
 
+    /**
+     * Терминальный метод, отвечающий за генерацию лабиринта
+     * @param labyrinth - объект лабиринта
+     * @return Optional объект, содержащий либо очередь со ссылками на клетки найденного пути, либо null,
+     * если путь найден не был
+     */
     @Override
     public Optional<Queue<Cell>> solve(Labyrinth labyrinth) {
         this.grid = labyrinth.grid();
@@ -57,6 +78,9 @@ public class WallFollowerSolver implements LabyrinthSolver {
         return Optional.of(deque);
     }
 
+    /**
+     * Метод, определяющий, в какую сторону следовать дальше при повороте налево
+     */
     private void rightRotate() {
         currentDirection = switch (currentDirection) {
             case UP -> Direction.RIGHT;
@@ -66,6 +90,9 @@ public class WallFollowerSolver implements LabyrinthSolver {
         };
     }
 
+    /**
+     * Метод, определяющий, в какую сторону следовать дальше при повороте направо
+     */
     private void leftRotate() {
         currentDirection = switch (currentDirection) {
             case UP -> Direction.LEFT;
@@ -75,6 +102,10 @@ public class WallFollowerSolver implements LabyrinthSolver {
         };
     }
 
+    /**
+     * Метод, проверяющий, можно ли совершить поворот направо
+     * @return true, если поворот возможен, false в ином случае
+     */
     private boolean canRotateRight() {
         return switch (currentDirection) {
             case UP -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1].type() != CellType.WALL;
@@ -85,6 +116,10 @@ public class WallFollowerSolver implements LabyrinthSolver {
         };
     }
 
+    /**
+     * Метод, проверяющий, можно ли совершить поворот налево
+     * @return true, если поворот возможен, false в ином случае
+     */
     private boolean canRotateLeft() {
         return switch (currentDirection) {
             case UP -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1].type() != CellType.WALL;
@@ -95,6 +130,10 @@ public class WallFollowerSolver implements LabyrinthSolver {
         };
     }
 
+    /**
+     * Метод, проверяющий следующую клетку, является ли она проходом или нет
+     * @return true, если следующая клетка - проход, false в ином случае
+     */
     private boolean checkForwardCell() {
         return switch (currentDirection) {
             case UP -> grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()].type() != CellType.WALL;
@@ -105,6 +144,10 @@ public class WallFollowerSolver implements LabyrinthSolver {
         };
     }
 
+    /**
+     * Метод, отвечающий за переход алгоритма к следующей доступной клетке
+     * @return следующую доступную для рассмотрения алгоритма клетку
+     */
     private Cell moveForward() {
         return switch (currentDirection) {
             case UP -> grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()];
@@ -114,6 +157,9 @@ public class WallFollowerSolver implements LabyrinthSolver {
         };
     }
 
+    /**
+     * Метод, помечающий текущую клетку как посещенную
+     */
     private void markCellAsVisit() {
         if (!currentCell.isVisited()) {
             deque.addLast(currentCell);
@@ -126,6 +172,9 @@ public class WallFollowerSolver implements LabyrinthSolver {
         }
     }
 
+    /**
+     * Enum, содержащий все возможные расстояния: ВВЕРХ, ВНИЗ, ПРАВО, ЛЕВО
+     */
     private enum Direction {
         UP,
         RIGHT,
