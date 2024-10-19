@@ -4,6 +4,7 @@ import backend.academy.labyrinths.entites.Cell;
 import backend.academy.labyrinths.entites.Labyrinth;
 import backend.academy.labyrinths.enums.CellType;
 import backend.academy.labyrinths.interfaces.ui.services.Renderer;
+import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.stream.Stream;
 
@@ -36,8 +37,10 @@ public class LabyrinthRenderer implements Renderer {
      */
     @Override
     public void render(Queue<Cell> solveCells) {
-        while (!solveCells.isEmpty()) {
-            Cell cell = solveCells.poll();
+        Queue<Cell> solve = new ArrayDeque<>(solveCells);
+
+        while (!solve.isEmpty()) {
+            Cell cell = solve.poll();
             if (!cell.type().equals(CellType.START)
                 && !cell.type().equals(CellType.FINISH)) {
                 cell.type(CellType.SOLVE);
