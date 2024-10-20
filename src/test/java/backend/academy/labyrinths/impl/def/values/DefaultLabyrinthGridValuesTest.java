@@ -4,10 +4,15 @@ import backend.academy.labyrinths.entites.Cell;
 import backend.academy.labyrinths.entites.Coordinates;
 import backend.academy.labyrinths.entites.Labyrinth;
 import backend.academy.labyrinths.enums.CellType;
+import lombok.Getter;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
 public class DefaultLabyrinthGridValuesTest {
+
+    @Getter private final static Coordinates start = new Coordinates(1, 1);
+
+    @Getter private final static Coordinates finish = new Coordinates(9, 9);
 
     public static Labyrinth getLabyrinthWithoutCycle() {
         return new Labyrinth(new Cell[][] {
@@ -492,5 +497,6 @@ public class DefaultLabyrinthGridValuesTest {
         result.add(source.grid()[9][8]);
         return result;
     }
+
 }
 
