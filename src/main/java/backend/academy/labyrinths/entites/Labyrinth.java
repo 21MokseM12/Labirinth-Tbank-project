@@ -47,4 +47,18 @@ public final class Labyrinth {
         grid[coordinates.x()][coordinates.y()].type(CellType.FINISH);
         this.finish = coordinates;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+
+        for (Cell[] cells : this.grid) {
+            for (Cell cell : cells) {
+                result.append(cell);
+            }
+            result.append("\n");
+        }
+
+        return result.toString();
+    }
 }
