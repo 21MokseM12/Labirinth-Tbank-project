@@ -1,11 +1,13 @@
 package backend.academy.labyrinths.impl.solvers;
 
 import backend.academy.labyrinths.entites.Cell;
+import backend.academy.labyrinths.entites.Coordinates;
 import backend.academy.labyrinths.entites.Labyrinth;
 import backend.academy.labyrinths.enums.CellType;
 import backend.academy.labyrinths.interfaces.solvers.LabyrinthSolver;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Queue;
 
@@ -46,8 +48,8 @@ public class WallFollowerSolver implements LabyrinthSolver {
         deque = new ArrayDeque<>();
         currentDirection = Direction.RIGHT;
 
-        Cell start = grid[labyrinth.start().y()][labyrinth.start().x()];
-        Cell exit = grid[labyrinth.finish().y()][labyrinth.finish().x()];
+        Cell start = grid[labyrinth.start().x()][labyrinth.start().y()];
+        Cell exit = grid[labyrinth.finish().x()][labyrinth.finish().y()];
 
         currentCell = start;
 
@@ -107,13 +109,26 @@ public class WallFollowerSolver implements LabyrinthSolver {
      * @return true, если поворот возможен, false в ином случае
      */
     private boolean canRotateRight() {
-        return switch (currentDirection) {
-            case UP -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1].type() != CellType.WALL;
-            case RIGHT ->
-                grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()].type() != CellType.WALL;
-            case DOWN -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1].type() != CellType.WALL;
-            case LEFT -> grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()].type() != CellType.WALL;
-        };
+        switch (currentDirection) {
+            case UP:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() + 1))) {
+                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1].type() != CellType.WALL;
+                }
+            case RIGHT:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() + 1, currentCell.coordinates().x()))) {
+                    return grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()].type() != CellType.WALL;
+                }
+            case DOWN:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() - 1))) {
+                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1].type() != CellType.WALL;
+                }
+            case LEFT:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() - 1, currentCell.coordinates().x()))) {
+                    return grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()].type() != CellType.WALL;
+                }
+            default:
+                return false;
+        }
     }
 
     /**
@@ -121,13 +136,26 @@ public class WallFollowerSolver implements LabyrinthSolver {
      * @return true, если поворот возможен, false в ином случае
      */
     private boolean canRotateLeft() {
-        return switch (currentDirection) {
-            case UP -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1].type() != CellType.WALL;
-            case RIGHT ->
-                grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()].type() != CellType.WALL;
-            case DOWN -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1].type() != CellType.WALL;
-            case LEFT -> grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()].type() != CellType.WALL;
-        };
+        switch (currentDirection) {
+            case UP:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() - 1))) {
+                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1].type() != CellType.WALL;
+                }
+            case RIGHT:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() - 1, currentCell.coordinates().x()))) {
+                    return grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()].type() != CellType.WALL;
+                }
+            case DOWN:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() + 1))) {
+                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1].type() != CellType.WALL;
+                }
+            case LEFT:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() + 1, currentCell.coordinates().x()))) {
+                    return grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()].type() != CellType.WALL;
+                }
+            default:
+                return false;
+        }
     }
 
     /**
@@ -135,13 +163,26 @@ public class WallFollowerSolver implements LabyrinthSolver {
      * @return true, если следующая клетка - проход, false в ином случае
      */
     private boolean checkForwardCell() {
-        return switch (currentDirection) {
-            case UP -> grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()].type() != CellType.WALL;
-            case RIGHT ->
-                grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1].type() != CellType.WALL;
-            case DOWN -> grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()].type() != CellType.WALL;
-            case LEFT -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1].type() != CellType.WALL;
-        };
+        switch (currentDirection) {
+            case UP:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() - 1, currentCell.coordinates().x()))) {
+                    return grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()].type() != CellType.WALL;
+                }
+            case RIGHT:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() + 1))) {
+                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1].type() != CellType.WALL;
+                }
+            case DOWN:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() + 1, currentCell.coordinates().x()))) {
+                    return grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()].type() != CellType.WALL;
+                }
+            case LEFT:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() - 1))) {
+                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1].type() != CellType.WALL;
+                }
+            default:
+                return false;
+        }
     }
 
     /**
@@ -149,12 +190,26 @@ public class WallFollowerSolver implements LabyrinthSolver {
      * @return следующую доступную для рассмотрения алгоритма клетку
      */
     private Cell moveForward() {
-        return switch (currentDirection) {
-            case UP -> grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()];
-            case RIGHT -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1];
-            case DOWN -> grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()];
-            case LEFT -> grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1];
-        };
+        switch (currentDirection) {
+            case UP:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() - 1, currentCell.coordinates().x()))) {
+                    return grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()];
+                }
+            case RIGHT:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() + 1))) {
+                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1];
+                }
+            case DOWN:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() + 1, currentCell.coordinates().x()))) {
+                    return grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()];
+                }
+            case LEFT:
+                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() - 1))) {
+                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1];
+                }
+            default:
+                throw new NoSuchElementException();
+        }
     }
 
     /**
@@ -170,6 +225,16 @@ public class WallFollowerSolver implements LabyrinthSolver {
                 currentCell.type(CellType.PASSAGE);
             }
         }
+    }
+
+    /**
+     * Метод проверки координат на нахождение внутри допустимых границ поля лабиринта
+     * @param coordinates - координаты, для проверки
+     * @return true, если координаты входят в границы поля лабиринта, false, если нет
+     */
+    private boolean coordinatesInGrid(Coordinates coordinates) {
+        return coordinates.x() >= 0 && coordinates.x() < grid.length
+            && coordinates.y() >= 0 && coordinates.y() < grid[0].length;
     }
 
     /**
