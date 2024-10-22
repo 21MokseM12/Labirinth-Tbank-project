@@ -2,6 +2,8 @@ package backend.academy.labyrinths.entites;
 
 import backend.academy.labyrinths.enums.CellType;
 import lombok.Getter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Класс лабиринта
@@ -20,7 +22,7 @@ public final class Labyrinth {
 
     private Coordinates start;
 
-    private Coordinates finish;
+    private final List<Coordinates> finish;
 
     private final Cell[][] grid;
 
@@ -28,6 +30,7 @@ public final class Labyrinth {
         this.width = grid[0].length;
         this.height = grid.length;
         this.grid = grid;
+        this.finish = new ArrayList<>();
     }
 
     /**
@@ -40,12 +43,23 @@ public final class Labyrinth {
     }
 
     /**
-     * Метод установления координат старта в лабиринте
-     * @param coordinates - координаты старта
+     * Метод установления координат финиша в лабиринте
+     * @param coordinates - список координат финиша
+     */
+    public void setFinish(List<Coordinates> coordinates) {
+        coordinates.forEach(coordinate -> {
+            grid[coordinate.x()][coordinate.y()].type(CellType.FINISH);
+            finish.add(coordinate);
+        });
+    }
+
+    /**
+     * Метод установления координат финиша в лабиринте
+     * @param coordinates - координаты финиша
      */
     public void setFinish(Coordinates coordinates) {
         grid[coordinates.x()][coordinates.y()].type(CellType.FINISH);
-        this.finish = coordinates;
+        this.finish.add(coordinates);
     }
 
     @Override

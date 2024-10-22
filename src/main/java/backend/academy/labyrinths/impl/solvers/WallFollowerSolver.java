@@ -49,7 +49,7 @@ public class WallFollowerSolver implements LabyrinthSolver {
         currentDirection = Direction.RIGHT;
 
         Cell start = grid[labyrinth.start().x()][labyrinth.start().y()];
-        Cell exit = grid[labyrinth.finish().x()][labyrinth.finish().y()];
+        Cell exit = grid[labyrinth.finish().getFirst().x()][labyrinth.finish().getFirst().y()];
 
         currentCell = start;
 
