@@ -141,7 +141,7 @@ public class UserInterface {
         for (int i = 0; i < types.length; i++) {
             resultString.append(i + 1).append(". ").append(types[i]).append("\n");
         }
-        resultString.append(Messages.RANDOM_CHOICE);
+        resultString.append(Messages.RANDOM_CHOICE.toString().formatted(types.length+1));
 
         printNewLine();
         dataManager.write(label.toString());

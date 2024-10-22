@@ -57,7 +57,7 @@ public enum Messages {
 
     SOLVE_NOT_FOUND("Решение не было найдено..."),
 
-    RANDOM_CHOICE("3. Случайный выбор");
+    RANDOM_CHOICE("%s. Случайный выбор");
 
     private final String message;
 
