@@ -8,19 +8,26 @@ import lombok.Getter;
 @Getter
 public enum CellType {
 
-    WALL("\u001B[40m\u001B[30m...\u001B[0m"),
+    WALL("⬛", 0),
 
-    PASSAGE("\u001B[47m\u001B[37m...\u001B[0m"),
+    PASSAGE("⬜", 2),
 
-    START("\u001B[42m\u001B[32m...\u001B[0m"),
+    START("\uD83D\uDFE9", 2),
 
-    FINISH("\u001B[41m\u001B[31m...\u001B[0m"),
+    FINISH("\uD83D\uDFE5", 2),
 
-    SOLVE("\u001B[43m\u001B[33m...\u001B[0m");
+    SOLVE("\uD83D\uDD25", 0),
+
+    BARRIER("❌", 1),
+
+    BOUNTY("$", 3);
 
     private final String color;
 
-    CellType(String color) {
+    private final int cost;
+
+    CellType(String color, int cost) {
         this.color = color;
+        this.cost = cost;
     }
 }
