@@ -13,6 +13,7 @@ import backend.academy.labyrinths.impl.ui.services.UserInterface;
 import backend.academy.labyrinths.impl.validators.InputSettingsValidator;
 import backend.academy.labyrinths.interfaces.ui.services.Renderer;
 import backend.academy.labyrinths.interfaces.validators.InputDataValidator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
@@ -22,6 +23,8 @@ import java.util.Random;
  * Класс сессии с пользователем
  */
 public class Session {
+
+    private final static Random RANDOM = new Random();
 
     /**
      * Сервис пользовательского интерфейса
@@ -81,7 +84,11 @@ public class Session {
         GeneratorType type = getGenerationLabyrinthAlgorithm();
 
         Labyrinth labyrinth = generatorFactory.get(type).generate(labyrinthParams[0], labyrinthParams[1]);
-        setStartFinishPositions(labyrinth);
+        if (type != GeneratorType.MANY_EXIT_GENERATOR) {
+            setStartFinishPositions(labyrinth);
+        } else {
+            setManyFinishPositions(labyrinth);
+        }
 
         ui.printGenerateAlgorithmName(type);
         renderer.printLabyrinthDelay(labyrinth, DELAY);
@@ -177,6 +184,20 @@ public class Session {
         }
     }
 
+    //TODO javadoc
+    private void setManyFinishPositions(Labyrinth labyrinth) {
+        List<Coordinates> coordinates = new ArrayList<>();
+        coordinates.add(new Coordinates(1, 1));
+        coordinates.add(new Coordinates(1, labyrinth.width() - 2));
+        coordinates.add(new Coordinates(labyrinth.height() - 2, 1));
+        coordinates.add(new Coordinates(labyrinth.height() - 2, labyrinth.width() - 2));
+
+        int startIndex = RANDOM.nextInt(coordinates.size());
+        labyrinth.setStart(coordinates.get(startIndex));
+        coordinates.remove(startIndex);
+        labyrinth.setFinish(coordinates);
+    }
+
     /**
      * Метод для вывода на консоль меню возможных алгоритмов и запроса у пользователя на выбор одного из них
      * @param types - массив доступных алгоритмов
@@ -196,7 +217,7 @@ public class Session {
                 if (Integer.parseInt(response) != types.length + 1) {
                     return types[Integer.parseInt(response) - 1];
                 } else {
-                    return types[new Random().nextInt(types.length)];
+                    return types[RANDOM.nextInt(types.length)];
                 }
             } else {
                 ui.printInputError();

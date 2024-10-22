@@ -7,7 +7,9 @@ public enum GeneratorType implements AlgorithmType {
 
     ELLER_GENERATOR("Алгоритм Эллера"),
 
-    DFS("DFS");
+    DFS("DFS"),
+
+    MANY_EXIT_GENERATOR("Генерация лабиринта с множеством выходов");
 
     private final String name;
 
