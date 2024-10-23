@@ -109,25 +109,17 @@ public class WallFollowerSolver implements LabyrinthSolver {
      * @return true, если поворот возможен, false в ином случае
      */
     private boolean canRotateRight() {
-        switch (currentDirection) {
-            case UP:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() + 1))) {
-                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1].type() != CellType.WALL;
-                }
-            case RIGHT:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() + 1, currentCell.coordinates().x()))) {
-                    return grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()].type() != CellType.WALL;
-                }
-            case DOWN:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() - 1))) {
-                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1].type() != CellType.WALL;
-                }
-            case LEFT:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() - 1, currentCell.coordinates().x()))) {
-                    return grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()].type() != CellType.WALL;
-                }
-            default:
-                return false;
+        Coordinates newCoordinates = switch (currentDirection) {
+            case UP -> new Coordinates(currentCell.coordinates().x() + 1, currentCell.coordinates().y());
+            case RIGHT -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() + 1);
+            case DOWN -> new Coordinates(currentCell.coordinates().x() - 1, currentCell.coordinates().y());
+            case LEFT -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() - 1);
+        };
+
+        if (coordinatesInGrid(newCoordinates)) {
+            return grid[newCoordinates.y()][newCoordinates.x()].type() != CellType.WALL;
+        } else {
+            return false;
         }
     }
 
@@ -136,25 +128,17 @@ public class WallFollowerSolver implements LabyrinthSolver {
      * @return true, если поворот возможен, false в ином случае
      */
     private boolean canRotateLeft() {
-        switch (currentDirection) {
-            case UP:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() - 1))) {
-                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1].type() != CellType.WALL;
-                }
-            case RIGHT:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() - 1, currentCell.coordinates().x()))) {
-                    return grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()].type() != CellType.WALL;
-                }
-            case DOWN:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() + 1))) {
-                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1].type() != CellType.WALL;
-                }
-            case LEFT:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() + 1, currentCell.coordinates().x()))) {
-                    return grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()].type() != CellType.WALL;
-                }
-            default:
-                return false;
+        Coordinates newCoordinates = switch (currentDirection) {
+            case UP -> new Coordinates(currentCell.coordinates().x() - 1, currentCell.coordinates().y());
+            case RIGHT -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() - 1);
+            case DOWN -> new Coordinates(currentCell.coordinates().x() + 1, currentCell.coordinates().y());
+            case LEFT -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() + 1);
+        };
+
+        if (coordinatesInGrid(newCoordinates)) {
+            return grid[newCoordinates.y()][newCoordinates.x()].type() != CellType.WALL;
+        } else {
+            return false;
         }
     }
 
@@ -163,52 +147,37 @@ public class WallFollowerSolver implements LabyrinthSolver {
      * @return true, если следующая клетка - проход, false в ином случае
      */
     private boolean checkForwardCell() {
-        switch (currentDirection) {
-            case UP:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() - 1, currentCell.coordinates().x()))) {
-                    return grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()].type() != CellType.WALL;
-                }
-            case RIGHT:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() + 1))) {
-                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1].type() != CellType.WALL;
-                }
-            case DOWN:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() + 1, currentCell.coordinates().x()))) {
-                    return grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()].type() != CellType.WALL;
-                }
-            case LEFT:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() - 1))) {
-                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1].type() != CellType.WALL;
-                }
-            default:
-                return false;
+        Coordinates newCoordinates = switch (currentDirection) {
+            case UP -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() - 1);
+            case RIGHT -> new Coordinates(currentCell.coordinates().x() + 1, currentCell.coordinates().y());
+            case DOWN -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() + 1);
+            case LEFT -> new Coordinates(currentCell.coordinates().x() - 1, currentCell.coordinates().y());
+        };
+
+        if (coordinatesInGrid(newCoordinates)) {
+            return grid[newCoordinates.y()][newCoordinates.x()].type() != CellType.WALL;
+        } else {
+            return false;
         }
     }
 
+    // todo javadoc
     /**
      * Метод, отвечающий за переход алгоритма к следующей доступной клетке
      * @return следующую доступную для рассмотрения алгоритма клетку
      */
     private Cell moveForward() {
-        switch (currentDirection) {
-            case UP:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() - 1, currentCell.coordinates().x()))) {
-                    return grid[currentCell.coordinates().y() - 1][currentCell.coordinates().x()];
-                }
-            case RIGHT:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() + 1))) {
-                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() + 1];
-                }
-            case DOWN:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y() + 1, currentCell.coordinates().x()))) {
-                    return grid[currentCell.coordinates().y() + 1][currentCell.coordinates().x()];
-                }
-            case LEFT:
-                if (coordinatesInGrid(new Coordinates(currentCell.coordinates().y(), currentCell.coordinates().x() - 1))) {
-                    return grid[currentCell.coordinates().y()][currentCell.coordinates().x() - 1];
-                }
-            default:
-                throw new NoSuchElementException();
+        Coordinates newCoordinates = switch (currentDirection) {
+            case UP -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() - 1);
+            case RIGHT -> new Coordinates(currentCell.coordinates().x() + 1, currentCell.coordinates().y());
+            case DOWN -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() + 1);
+            case LEFT -> new Coordinates(currentCell.coordinates().x() - 1, currentCell.coordinates().y());
+        };
+
+        if (coordinatesInGrid(newCoordinates)) {
+            return grid[newCoordinates.y()][newCoordinates.x()];
+        } else {
+            throw new NoSuchElementException();
         }
     }
 
