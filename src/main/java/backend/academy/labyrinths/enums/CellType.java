@@ -8,19 +8,19 @@ import lombok.Getter;
 @Getter
 public enum CellType {
 
-    WALL("⬛", 0),
+    WALL("⬛", Integer.MAX_VALUE),
 
     PASSAGE("⬜", 2),
 
-    START("\uD83D\uDFE9", 2),
+    START("\uD83D\uDFE9", 0),
 
-    FINISH("\uD83D\uDFE5", 2),
+    FINISH("\uD83D\uDFE5", 0),
 
     SOLVE("\uD83D\uDD25", 0),
 
-    BARRIER("❌", 1),
+    BARRIER("❌", 3),
 
-    BOUNTY("$", 3);
+    BOUNTY("$", 1);
 
     private final String color;
 
