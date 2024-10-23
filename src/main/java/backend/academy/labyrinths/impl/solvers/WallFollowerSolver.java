@@ -147,12 +147,7 @@ public class WallFollowerSolver implements LabyrinthSolver {
      * @return true, если следующая клетка - проход, false в ином случае
      */
     private boolean checkForwardCell() {
-        Coordinates newCoordinates = switch (currentDirection) {
-            case UP -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() - 1);
-            case RIGHT -> new Coordinates(currentCell.coordinates().x() + 1, currentCell.coordinates().y());
-            case DOWN -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() + 1);
-            case LEFT -> new Coordinates(currentCell.coordinates().x() - 1, currentCell.coordinates().y());
-        };
+        Coordinates newCoordinates = getNewCoordinatesForForwardCell();
 
         if (coordinatesInGrid(newCoordinates)) {
             return grid[newCoordinates.y()][newCoordinates.x()].type() != CellType.WALL;
@@ -167,18 +162,22 @@ public class WallFollowerSolver implements LabyrinthSolver {
      * @return следующую доступную для рассмотрения алгоритма клетку
      */
     private Cell moveForward() {
-        Coordinates newCoordinates = switch (currentDirection) {
-            case UP -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() - 1);
-            case RIGHT -> new Coordinates(currentCell.coordinates().x() + 1, currentCell.coordinates().y());
-            case DOWN -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() + 1);
-            case LEFT -> new Coordinates(currentCell.coordinates().x() - 1, currentCell.coordinates().y());
-        };
+        Coordinates newCoordinates = getNewCoordinatesForForwardCell();
 
         if (coordinatesInGrid(newCoordinates)) {
             return grid[newCoordinates.y()][newCoordinates.x()];
         } else {
             throw new NoSuchElementException();
         }
+    }
+
+    private Coordinates getNewCoordinatesForForwardCell() {
+        return switch (currentDirection) {
+            case UP -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() - 1);
+            case RIGHT -> new Coordinates(currentCell.coordinates().x() + 1, currentCell.coordinates().y());
+            case DOWN -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() + 1);
+            case LEFT -> new Coordinates(currentCell.coordinates().x() - 1, currentCell.coordinates().y());
+        };
     }
 
     /**
