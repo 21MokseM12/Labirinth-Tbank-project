@@ -20,7 +20,7 @@ public enum CellType {
 
     BARRIER("❌", 3),
 
-    BOUNTY("$", 1);
+    BOUNTY("⭐", 1);
 
     private final String color;
 
