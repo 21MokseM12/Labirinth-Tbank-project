@@ -84,16 +84,20 @@ public class Session {
         GeneratorType type = getGenerationLabyrinthAlgorithm();
 
         Labyrinth labyrinth = generatorFactory.get(type).generate(labyrinthParams[0], labyrinthParams[1]);
+        SolverType solverType;
+
         if (type != GeneratorType.MANY_EXIT_GENERATOR) {
             setStartFinishPositions(labyrinth);
+            ui.printGenerateAlgorithmName(type);
+            renderer.printLabyrinthDelay(labyrinth, DELAY);
+            solverType = getSolveLabyrinthAlgorithm();
         } else {
             setManyFinishPositions(labyrinth);
+            ui.printGenerateAlgorithmName(type);
+            renderer.printLabyrinthDelay(labyrinth, DELAY);
+            solverType = SolverType.A_STAR;
         }
 
-        ui.printGenerateAlgorithmName(type);
-        renderer.printLabyrinthDelay(labyrinth, DELAY);
-
-        SolverType solverType = getSolveLabyrinthAlgorithm();
         Optional<Queue<Cell>> solve = solverFactory.get(solverType).solve(labyrinth);
         if (solve.isPresent()) {
             ui.printSolveLabyrinthLabel(solverType);
@@ -184,7 +188,10 @@ public class Session {
         }
     }
 
-    //TODO javadoc
+    /**
+     * Метод для установления одного входа и множества выходов в лабиринте
+     * @param labyrinth - объект лабиринта
+     */
     private void setManyFinishPositions(Labyrinth labyrinth) {
         List<Coordinates> coordinates = new ArrayList<>();
         coordinates.add(new Coordinates(1, 1));

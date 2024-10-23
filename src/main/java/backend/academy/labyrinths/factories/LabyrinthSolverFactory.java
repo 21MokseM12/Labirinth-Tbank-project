@@ -1,6 +1,7 @@
 package backend.academy.labyrinths.factories;
 
 import backend.academy.labyrinths.enums.SolverType;
+import backend.academy.labyrinths.impl.solvers.AStarSolver;
 import backend.academy.labyrinths.impl.solvers.DeepFirstSearchSolver;
 import backend.academy.labyrinths.impl.solvers.WallFollowerSolver;
 import backend.academy.labyrinths.interfaces.solvers.LabyrinthSolver;
@@ -22,6 +23,8 @@ public class LabyrinthSolverFactory {
                 solvers.put(type, new DeepFirstSearchSolver());
             } else if (type.equals(SolverType.WALL_FOLLOWER)) {
                 solvers.put(type, new WallFollowerSolver());
+            } else if (type.equals(SolverType.A_STAR)) {
+                solvers.put(type, new AStarSolver());
             }
         }
     }

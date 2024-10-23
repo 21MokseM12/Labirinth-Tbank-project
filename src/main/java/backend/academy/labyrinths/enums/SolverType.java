@@ -8,7 +8,9 @@ public enum SolverType implements AlgorithmType {
 
     DEEP_FIRST_SEARCH("Поиск в глубину"),
 
-    WALL_FOLLOWER("Следование вдоль стен");
+    WALL_FOLLOWER("Следование вдоль стен"),
+
+    A_STAR("А*");
 
     private final String name;
 
