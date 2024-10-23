@@ -1,9 +1,9 @@
 package backend.academy.labyrinths.entites;
 
 import backend.academy.labyrinths.enums.CellType;
+import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.Objects;
 
 /**
  * Класс клетки лабиринта
@@ -32,8 +32,12 @@ public class Cell {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Cell cell = (Cell) o;
         return this.isVisited == cell.isVisited && this.cost == cell.cost
             && this.type.equals(cell.type)
@@ -44,7 +48,6 @@ public class Cell {
     public int hashCode() {
         return Objects.hash(coordinates, type);
     }
-
 
     @Override
     public String toString() {

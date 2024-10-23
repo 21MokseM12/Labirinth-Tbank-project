@@ -10,6 +10,12 @@ public class ManySolvesLabyrinthGenerator implements LabyrinthGenerator {
 
     private final static Random RANDOM = new Random();
 
+    private final static int COUNT_MODIFICATION_FIELDS_DELIMITER = 5;
+
+    private final static int RANDOM_DISTRIBUTION_NUMBER = 100;
+
+    private final static int RANDOM_DISTRIBUTION_NUMBER_DELIMITER = 100;
+
     private int countBounties;
 
     private int countBarriers;
@@ -19,8 +25,8 @@ public class ManySolvesLabyrinthGenerator implements LabyrinthGenerator {
     @Override
     public Labyrinth generate(int width, int height) {
         Labyrinth labyrinth = generator.generate(width, height);
-        this.countBounties = (width + height) / 5;
-        this.countBarriers = (width + height) / 5;
+        this.countBounties = (width + height) / COUNT_MODIFICATION_FIELDS_DELIMITER;
+        this.countBarriers = (width + height) / COUNT_MODIFICATION_FIELDS_DELIMITER;
         setBarriers(labyrinth);
         setBounties(labyrinth);
         return labyrinth;
@@ -31,7 +37,8 @@ public class ManySolvesLabyrinthGenerator implements LabyrinthGenerator {
 
         for (Cell[] cells : labyrinth.grid()) {
             for (Cell cell : cells) {
-                if (RANDOM.nextInt(100) % 25 == 0 && cell.type().equals(CellType.PASSAGE) && counter <= countBarriers) {
+                if (RANDOM.nextInt(RANDOM_DISTRIBUTION_NUMBER) % RANDOM_DISTRIBUTION_NUMBER_DELIMITER == 0
+                    && cell.type().equals(CellType.PASSAGE) && counter <= countBarriers) {
                     cell.type(CellType.BARRIER);
                     counter++;
                 }
@@ -44,7 +51,8 @@ public class ManySolvesLabyrinthGenerator implements LabyrinthGenerator {
 
         for (Cell[] cells : labyrinth.grid()) {
             for (Cell cell : cells) {
-                if (RANDOM.nextInt(100) % 25 == 0 && cell.type().equals(CellType.PASSAGE) && counter <= countBounties) {
+                if (RANDOM.nextInt(RANDOM_DISTRIBUTION_NUMBER) % RANDOM_DISTRIBUTION_NUMBER_DELIMITER == 0
+                    && cell.type().equals(CellType.PASSAGE) && counter <= countBounties) {
                     cell.type(CellType.BOUNTY);
                     counter++;
                 }

@@ -1,9 +1,9 @@
 package backend.academy.labyrinths.entites;
 
 import backend.academy.labyrinths.enums.CellType;
-import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
 /**
  * Класс лабиринта

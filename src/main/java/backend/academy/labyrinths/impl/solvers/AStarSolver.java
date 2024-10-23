@@ -42,7 +42,7 @@ public class AStarSolver implements LabyrinthSolver {
             }
 
             closedList.add(current);
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < DX.length; i++) {
                 int newX = current.coordinates().x() + DX[i];
                 int newY = current.coordinates().y() + DY[i];
 
@@ -79,8 +79,8 @@ public class AStarSolver implements LabyrinthSolver {
     private int calculateHeuristic(Cell currentCell, List<Coordinates> exits) {
         int minHeuristic = Integer.MAX_VALUE;
         for (Coordinates exit : exits) {
-            int distance = Math.abs(currentCell.coordinates().x() - exit.x()) +
-                Math.abs(currentCell.coordinates().y() - exit.y());
+            int distance = Math.abs(currentCell.coordinates().x() - exit.x())
+                + Math.abs(currentCell.coordinates().y() - exit.y());
             minHeuristic = Math.min(minHeuristic, distance);
         }
         return minHeuristic;
@@ -92,7 +92,9 @@ public class AStarSolver implements LabyrinthSolver {
     }
 
     // Восстановление пути
-    private Queue<Cell> reconstructPath(Map<Cell, Cell> cameFrom, Cell current) {
+    private Queue<Cell> reconstructPath(Map<Cell, Cell> cameFrom, Cell finishCell) {
+        Cell current = finishCell;
+
         Queue<Cell> path = new ArrayDeque<>();
         while (current != null) {
             path.add(current);
