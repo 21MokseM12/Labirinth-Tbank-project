@@ -86,7 +86,7 @@ public class WallFollowerSolverTest {
     }
 
     @Test
-    void checkRightRotationDuringSolve() {
+    public void checkRightRotationDuringSolve() {
         // Устанавливаем типы клеток (например, все клетки проходимы)
         when(grid[0][0].type()).thenReturn(CellType.START);
         when(grid[0][1].type()).thenReturn(CellType.PASSAGE);
@@ -115,7 +115,7 @@ public class WallFollowerSolverTest {
     }
 
     @Test
-    void checkMoveForwardDuringSolve() {
+    public void checkMoveForwardDuringSolve() {
         // Устанавливаем типы клеток (например, все клетки проходимы)
         when(grid[0][0].type()).thenReturn(CellType.START);
         when(grid[0][1].type()).thenReturn(CellType.PASSAGE);
