@@ -38,7 +38,7 @@ public final class Labyrinth {
      * @param coordinates - координаты старта
      */
     public void setStart(Coordinates coordinates) {
-        grid[coordinates.x()][coordinates.y()].type(CellType.START);
+        grid[coordinates.y()][coordinates.x()].type(CellType.START);
         this.start = coordinates;
     }
 
@@ -48,7 +48,7 @@ public final class Labyrinth {
      */
     public void setFinish(List<Coordinates> coordinates) {
         coordinates.forEach(coordinate -> {
-            grid[coordinate.x()][coordinate.y()].type(CellType.FINISH);
+            grid[coordinate.y()][coordinate.x()].type(CellType.FINISH);
             finish.add(coordinate);
         });
     }
@@ -58,7 +58,7 @@ public final class Labyrinth {
      * @param coordinates - координаты финиша
      */
     public void setFinish(Coordinates coordinates) {
-        grid[coordinates.x()][coordinates.y()].type(CellType.FINISH);
+        grid[coordinates.y()][coordinates.x()].type(CellType.FINISH);
         this.finish.add(coordinates);
     }
 

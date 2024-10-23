@@ -48,8 +48,8 @@ public class WallFollowerSolver implements LabyrinthSolver {
         deque = new ArrayDeque<>();
         currentDirection = Direction.RIGHT;
 
-        Cell start = grid[labyrinth.start().x()][labyrinth.start().y()];
-        Cell exit = grid[labyrinth.finish().getFirst().x()][labyrinth.finish().getFirst().y()];
+        Cell start = grid[labyrinth.start().y()][labyrinth.start().x()];
+        Cell exit = grid[labyrinth.finish().getFirst().y()][labyrinth.finish().getFirst().x()];
 
         currentCell = start;
 
@@ -233,8 +233,8 @@ public class WallFollowerSolver implements LabyrinthSolver {
      * @return true, если координаты входят в границы поля лабиринта, false, если нет
      */
     private boolean coordinatesInGrid(Coordinates coordinates) {
-        return coordinates.x() >= 0 && coordinates.x() < grid.length
-            && coordinates.y() >= 0 && coordinates.y() < grid[0].length;
+        return coordinates.x() >= 0 && coordinates.x() < grid[0].length
+            && coordinates.y() >= 0 && coordinates.y() < grid.length;
     }
 
     /**

@@ -155,11 +155,11 @@ public class Session {
             // left up corner
             new Coordinates(1, 1),
             // right up corner
-            new Coordinates(1, labyrinth.width() - 2),
+            new Coordinates(labyrinth.width() - 2, 1),
             // left down corner
-            new Coordinates(labyrinth.height() - 2, 1),
+            new Coordinates(1, labyrinth.height() - 2),
             // right down corner
-            new Coordinates(labyrinth.height() - 2, labyrinth.width() - 2)
+            new Coordinates(labyrinth.width() - 2, labyrinth.height() - 2)
         );
 
         while (true) {
@@ -195,9 +195,9 @@ public class Session {
     private void setManyFinishPositions(Labyrinth labyrinth) {
         List<Coordinates> coordinates = new ArrayList<>();
         coordinates.add(new Coordinates(1, 1));
-        coordinates.add(new Coordinates(1, labyrinth.width() - 2));
-        coordinates.add(new Coordinates(labyrinth.height() - 2, 1));
-        coordinates.add(new Coordinates(labyrinth.height() - 2, labyrinth.width() - 2));
+        coordinates.add(new Coordinates(labyrinth.width() - 2, 1));
+        coordinates.add(new Coordinates(1, labyrinth.height() - 2));
+        coordinates.add(new Coordinates(labyrinth.width() - 2, labyrinth.height() - 2));
 
         int startIndex = RANDOM.nextInt(coordinates.size());
         labyrinth.setStart(coordinates.get(startIndex));

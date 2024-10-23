@@ -36,8 +36,8 @@ public class DeepFirstSearchSolver implements LabyrinthSolver {
         Cell currentCell;
 
         Cell next;
-        Cell exit = labyrinth.grid()[labyrinth.finish().getFirst().x()][labyrinth.finish().getFirst().y()];
-        Cell start = labyrinth.grid()[labyrinth.start().x()][labyrinth.start().y()];
+        Cell exit = labyrinth.grid()[labyrinth.finish().getFirst().y()][labyrinth.finish().getFirst().x()];
+        Cell start = labyrinth.grid()[labyrinth.start().y()][labyrinth.start().x()];
         currentCell = start;
 
         do {
