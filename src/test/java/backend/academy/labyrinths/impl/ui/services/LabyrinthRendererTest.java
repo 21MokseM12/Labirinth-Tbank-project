@@ -1,83 +1,70 @@
 package backend.academy.labyrinths.impl.ui.services;
 
 import backend.academy.labyrinths.entites.Cell;
+import backend.academy.labyrinths.entites.Coordinates;
 import backend.academy.labyrinths.entites.Labyrinth;
 import backend.academy.labyrinths.enums.CellType;
-import backend.academy.labyrinths.impl.def.values.DefaultLabyrinthGridValuesTest;
 import backend.academy.labyrinths.interfaces.ui.services.Renderer;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.ArrayDeque;
 import java.util.Queue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class LabyrinthRendererTest {
 
     private final Renderer render = new LabyrinthRenderer();
 
-    @Test
-    public void checkRenderOfCycleLabyrinthSuccess() {
-        final Labyrinth source = DefaultLabyrinthGridValuesTest.getLabyrinthWithCycle();
-        Queue<Cell> solve = DefaultLabyrinthGridValuesTest.getSolveCycleLabyrinth(source);
+    private Labyrinth labyrinth;
 
-        render.render(solve);
-
-        boolean assertTrue = true;
-        while (!solve.isEmpty()) {
-            if (!solve.poll().type().equals(CellType.SOLVE)) {
-                assertTrue = false;
-            }
-        }
-
-        Assertions.assertTrue(assertTrue);
+    @BeforeEach
+    void setUp() {
+        labyrinth = mock(Labyrinth.class);
     }
 
     @Test
-    public void checkRenderOfCycleLabyrinthDenied() {
-        final Labyrinth source = DefaultLabyrinthGridValuesTest.getLabyrinthWithCycle();
-        Queue<Cell> solve = DefaultLabyrinthGridValuesTest.getSolveCycleLabyrinth(source);
+    void checkPrintLabyrinthDelay() throws InterruptedException {
+        Cell cell1 = new Cell(new Coordinates(0, 0), CellType.PASSAGE);
+        Cell cell2 = new Cell(new Coordinates(0, 1), CellType.WALL);
+        Cell[] row1 = {cell1, cell2};
+        Cell[][] grid = {row1};
 
-        render.render(solve);
+        // Мокаем метод grid() у лабиринта
+        when(labyrinth.grid()).thenReturn(grid);
 
-        boolean assertTrue = false;
-        while (!solve.isEmpty()) {
-            if (!solve.poll().type().equals(CellType.SOLVE)) {
-                assertTrue = true;
-            }
-        }
+        // Печать с задержкой в 0 миллисекунд
+        render.printLabyrinthDelay(labyrinth, 0);
 
-        Assertions.assertFalse(assertTrue);
+        // Проверяем, что был вызван метод grid() у объекта Labyrinth
+        verify(labyrinth, times(1)).grid();
     }
 
     @Test
-    public void checkRenderOfNoCycleLabyrinthSuccess() {
-        final Labyrinth source = DefaultLabyrinthGridValuesTest.getLabyrinthWithoutCycle();
-        Queue<Cell> solve = DefaultLabyrinthGridValuesTest.getSolveNoCycleLabyrinth(source);
+    void testRender() {
+        Cell cell1 = new Cell(new Coordinates(0, 0), CellType.PASSAGE);
+        Cell cell2 = new Cell(new Coordinates(0, 1), CellType.PASSAGE);
+        Cell cell3 = new Cell(new Coordinates(1, 0), CellType.START);
+        Cell cell4 = new Cell(new Coordinates(1, 1), CellType.FINISH);
 
-        render.render(solve);
+        Queue<Cell> solveCells = new ArrayDeque<>();
+        solveCells.add(cell1);
+        solveCells.add(cell2);
+        solveCells.add(cell3);
+        solveCells.add(cell4);
 
-        boolean assertTrue = true;
-        while (!solve.isEmpty()) {
-            if (!solve.poll().type().equals(CellType.SOLVE)) {
-                assertTrue = false;
-            }
-        }
+        // Рендерим клетки
+        render.render(solveCells);
 
-        Assertions.assertTrue(assertTrue);
-    }
+        // Проверяем, что клетки, которые не являются START и FINISH, получили тип SOLVE
+        assertEquals(CellType.SOLVE, cell1.type());
+        assertEquals(CellType.SOLVE, cell2.type());
 
-    @Test
-    public void checkRenderOfNoCycleLabyrinthDenied() {
-        final Labyrinth source = DefaultLabyrinthGridValuesTest.getLabyrinthWithoutCycle();
-        Queue<Cell> solve = DefaultLabyrinthGridValuesTest.getSolveNoCycleLabyrinth(source);
-
-        render.render(solve);
-
-        boolean assertTrue = false;
-        while (!solve.isEmpty()) {
-            if (!solve.poll().type().equals(CellType.SOLVE)) {
-                assertTrue = true;
-            }
-        }
-
-        Assertions.assertFalse(assertTrue);
+        // START и FINISH не должны измениться
+        assertEquals(CellType.START, cell3.type());
+        assertEquals(CellType.FINISH, cell4.type());
     }
 }
