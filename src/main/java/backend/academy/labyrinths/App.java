@@ -8,6 +8,9 @@ import backend.academy.labyrinths.managers.SessionManager;
 @SuppressWarnings("uncommentedmain")
 public final class App {
 
+    /**
+     * Объект менеджера сессии
+     */
     private static final SessionManager SESSION_MANAGER = new SessionManager();
 
     private App() {

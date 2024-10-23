@@ -16,13 +16,27 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
-//todo javadoc
+/**
+ * Класс поиска пути в лабиринте алгоритмом А-стар
+ */
 public class AStarSolver implements LabyrinthSolver {
 
+    /**
+     * Массив с возможными направлениями движения в лабиринте по оси Х
+     */
     private static final int[] DX = {-1, 1, 0, 0};
 
+    /**
+     * Массив с возможными направлениями движения в лабиринте по оси Y
+     */
     private static final int[] DY = {0, 0, -1, 1};
 
+    /**
+     * Терминальный метод, отвечающий за генерацию лабиринта
+     * @param labyrinth - объект лабиринта
+     * @return Optional объект, содержащий либо очередь со ссылками на клетки найденного пути, либо null,
+     * если путь найден не был
+     */
     @Override
     public Optional<Queue<Cell>> solve(Labyrinth labyrinth) {
         PriorityQueue<Cell> openList = new PriorityQueue<>(Comparator.comparingInt(Cell::cost));
@@ -46,7 +60,7 @@ public class AStarSolver implements LabyrinthSolver {
                 int newX = current.coordinates().x() + DX[i];
                 int newY = current.coordinates().y() + DY[i];
 
-                if (isValid(newX, newY, labyrinth.grid())) {
+                if (isValidCoordinates(newX, newY, labyrinth.grid())) {
                     Cell neighbor = labyrinth.grid()[newY][newX];
 
                     // Если сосед непроходим или уже в закрытом списке, пропускаем его
@@ -64,7 +78,7 @@ public class AStarSolver implements LabyrinthSolver {
 
                         if (!openList.contains(neighbor)) {
                             openList.add(neighbor);
-                            closedList.add(neighbor); // Добавляем в closedList сразу, чтобы не добавлять повторно
+                            closedList.add(neighbor);
                         }
                     }
                 }
@@ -75,7 +89,12 @@ public class AStarSolver implements LabyrinthSolver {
         return Optional.empty();
     }
 
-    // Метод для вычисления Манхеттенского расстояния до ближайшего выхода
+    /**
+     * Метод для вычисления Манхеттенского расстояния до ближайшего выхода
+     * @param currentCell - текущая клетка, на которой находится алгоритм
+     * @param exits - список возможных выходов из лабиринта
+     * @return минимальное расстояние до выхода
+     */
     private int calculateHeuristic(Cell currentCell, List<Coordinates> exits) {
         int minHeuristic = Integer.MAX_VALUE;
         for (Coordinates exit : exits) {
@@ -86,12 +105,26 @@ public class AStarSolver implements LabyrinthSolver {
         return minHeuristic;
     }
 
-    // Проверка, находится ли клетка внутри лабиринта
-    private boolean isValid(int x, int y, Cell[][] grid) {
+    /**
+     * Метод проверки, находится ли клетка внутри лабиринта
+     * @param x - координата Х
+     * @param y - координата Y
+     * @param grid - поле лабиринта
+     * @return true, если клетка входит в границы поля лабиринта, false, если нет
+     */
+    private boolean isValidCoordinates(int x, int y, Cell[][] grid) {
         return x >= 0 && x < grid[0].length && y >= 0 && y < grid.length;
     }
 
     // Восстановление пути
+
+    /**
+     * Метод восстановления пути, пройденного алгоритмом
+     * @param cameFrom - Map, где ключом является следующая клетка пути, значением - предыдущая клетка
+     *                 пройденного пути
+     * @param finishCell - клетка, содержащая ссылку на клетку выхода из лабиринта, до которой дошел алгоритм
+     * @return Queue, содержащая путь от клетки старта до клетки финиша в лабиринте
+     */
     private Queue<Cell> reconstructPath(Map<Cell, Cell> cameFrom, Cell finishCell) {
         Cell current = finishCell;
 

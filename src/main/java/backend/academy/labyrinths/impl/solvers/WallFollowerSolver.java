@@ -148,7 +148,6 @@ public class WallFollowerSolver implements LabyrinthSolver {
      */
     private boolean checkForwardCell() {
         Coordinates newCoordinates = getNewCoordinatesForForwardCell();
-
         if (coordinatesInGrid(newCoordinates)) {
             return grid[newCoordinates.y()][newCoordinates.x()].type() != CellType.WALL;
         } else {
@@ -156,14 +155,14 @@ public class WallFollowerSolver implements LabyrinthSolver {
         }
     }
 
-    // todo javadoc
     /**
      * Метод, отвечающий за переход алгоритма к следующей доступной клетке
      * @return следующую доступную для рассмотрения алгоритма клетку
+     * @throws NoSuchElementException - исключение, выбрасываемое, если координаты объекта клетки
+     * выходят за границы поля лабиринта
      */
     private Cell moveForward() {
         Coordinates newCoordinates = getNewCoordinatesForForwardCell();
-
         if (coordinatesInGrid(newCoordinates)) {
             return grid[newCoordinates.y()][newCoordinates.x()];
         } else {
@@ -171,6 +170,10 @@ public class WallFollowerSolver implements LabyrinthSolver {
         }
     }
 
+    /**
+     * Метод, возвращающий объект координат в зависимости от текущего состояния поля currentDirection
+     * @return объект класса Coordinates
+     */
     private Coordinates getNewCoordinatesForForwardCell() {
         return switch (currentDirection) {
             case UP -> new Coordinates(currentCell.coordinates().x(), currentCell.coordinates().y() - 1);
