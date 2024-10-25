@@ -6,7 +6,7 @@ import backend.academy.labyrinths.enums.CellType;
 import backend.academy.labyrinths.interfaces.generators.LabyrinthGenerator;
 import java.util.Random;
 
-public class ManySolvesLabyrinthGenerator implements LabyrinthGenerator {
+public class ModifiedCellLabyrinthGenerator implements LabyrinthGenerator {
 
     private final static Random RANDOM = new Random();
 

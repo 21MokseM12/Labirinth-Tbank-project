@@ -3,7 +3,7 @@ package backend.academy.labyrinths.factories;
 import backend.academy.labyrinths.enums.GeneratorType;
 import backend.academy.labyrinths.impl.generators.DeepFirstSearchGenerator;
 import backend.academy.labyrinths.impl.generators.EllerGenerator;
-import backend.academy.labyrinths.impl.generators.ManySolvesLabyrinthGenerator;
+import backend.academy.labyrinths.impl.generators.ModifiedCellLabyrinthGenerator;
 import backend.academy.labyrinths.interfaces.generators.LabyrinthGenerator;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class LabyrinthGeneratorFactory {
             } else if (type.equals(GeneratorType.DFS)) {
                 generators.put(type, new DeepFirstSearchGenerator());
             } else if (type.equals(GeneratorType.MANY_EXIT_GENERATOR)) {
-                generators.put(type, new ManySolvesLabyrinthGenerator());
+                generators.put(type, new ModifiedCellLabyrinthGenerator());
             }
         }
     }
