@@ -3,7 +3,6 @@ package backend.academy.labyrinths.impl.services;
 import backend.academy.labyrinths.entites.Cell;
 import backend.academy.labyrinths.entites.Coordinates;
 import backend.academy.labyrinths.entites.Labyrinth;
-import backend.academy.labyrinths.enums.AlgorithmType;
 import backend.academy.labyrinths.enums.GeneratorType;
 import backend.academy.labyrinths.enums.SolverType;
 import backend.academy.labyrinths.factories.LabyrinthGeneratorFactory;
@@ -210,12 +209,12 @@ public class Session {
      * @param types - массив доступных алгоритмов
      * @return - выбранный тип алгоритма
      */
-    private AlgorithmType getAlgorithmType(AlgorithmType[] types) {
+    private Enum getAlgorithmType(Enum[] types) {
         while (true) {
             if (types instanceof GeneratorType[]) {
-                ui.printSetGenerationAlgorithm(types);
+                ui.printSetGenerationAlgorithm((GeneratorType[]) types);
             } else if (types instanceof SolverType[]) {
-                ui.printSetResolvedAlgorithm(types);
+                ui.printSetResolvedAlgorithm((SolverType[]) types);
             }
             ui.printChooseVariant();
             String response = ui.read();

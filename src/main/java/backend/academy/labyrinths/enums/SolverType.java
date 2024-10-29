@@ -4,7 +4,7 @@ package backend.academy.labyrinths.enums;
  * Enum, содержащий тип алгоритма решения лабиринта
  */
 
-public enum SolverType implements AlgorithmType {
+public enum SolverType {
 
     DEEP_FIRST_SEARCH("Поиск в глубину"),
 

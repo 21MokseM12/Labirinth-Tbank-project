@@ -1,6 +1,5 @@
 package backend.academy.labyrinths.impl.ui.services;
 
-import backend.academy.labyrinths.enums.AlgorithmType;
 import backend.academy.labyrinths.enums.GeneratorType;
 import backend.academy.labyrinths.enums.Messages;
 import backend.academy.labyrinths.enums.SolverType;
@@ -81,7 +80,7 @@ public class UserInterface {
     /**
      * Метод вывода на экран меню с выбором алгоритма генерации лабиринта
      */
-    public void printSetGenerationAlgorithm(AlgorithmType[] types) {
+    public void printSetGenerationAlgorithm(GeneratorType[] types) {
         printSetAlgorithmMenu(types, Messages.GENERATION_ALGORITHM_MENU_LABEL);
     }
 
@@ -104,7 +103,7 @@ public class UserInterface {
     /**
      * Метод вывода на экран меню с выбором алгоритма поиска пути в лабиринте
      */
-    public void printSetResolvedAlgorithm(AlgorithmType[] types) {
+    public void printSetResolvedAlgorithm(SolverType[] types) {
         printSetAlgorithmMenu(types, Messages.SOLVER_ALGORITHM_MENU_LABEL);
     }
 
@@ -136,7 +135,7 @@ public class UserInterface {
      * @param types - массив, содержащий объекты enum'а
      * @param label - топик меню
      */
-    private void printSetAlgorithmMenu(AlgorithmType[] types, Messages label) {
+    private void printSetAlgorithmMenu(Enum[] types, Messages label) {
         StringBuilder resultString = new StringBuilder();
         for (int i = 0; i < types.length; i++) {
             resultString.append(i + 1).append(". ").append(types[i]).append("\n");

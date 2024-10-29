@@ -3,7 +3,7 @@ package backend.academy.labyrinths.enums;
 /**
  * Enum, содержащий тип генератора лабиринта
  */
-public enum GeneratorType implements AlgorithmType {
+public enum GeneratorType {
 
     ELLER_GENERATOR("Алгоритм Эллера"),
 
